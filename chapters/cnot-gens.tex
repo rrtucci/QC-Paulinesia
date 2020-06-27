@@ -1,0 +1,922 @@
+
+\chapter{CNOT Generalizations}
+
+In this section, $\vec{\bita}$,
+$\vec{\bitb}$ and $\vec{\bitc}$
+will denote disjoint
+sets of distinct qubits.
+That is,
+any two different components of the same
+vector, or two components of
+different vectors
+represent different qubits.
+
+Suppose $U$ is a unitary matrix.
+Furthermore,
+for $j=1,2$, suppose
+$\pi_j$
+is a projection operator
+(i.e., $\pi_j^2 = \pi_j$,
+the eigenvalues of $\pi_j$
+are all 0 or 1).
+Some examples of projection operators
+$\pi_j$ that
+are of interest to us: 1, $n(\bita)$,
+$n(\bita)n(\bitb)$,
+$n(\bita)\nbar(\bitb)$,
+$n(\bita)n(\bitb)n(\bitc)$, etc.
+It is convenient to generalize CNOT
+diagrammatic notation as follows.
+Let
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{\pi_1}\qwx[1]
+&\rstick{\vec{\bita}}\qw
+\\
+&\ovalgate{\pi_2}
+&\rstick{\vec{\bitb}}\qw
+}
+\end{array}
+\;\;\;=
+(-1)^{\pi_1(\vec{\bita})\pi_2(\vec{\bitb})}
+\;,
+\label{eq-oval-oval}
+\eeq}
+and
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{\pi_1}\qwx[1]
+&\rstick{\vec{\bita}}\qw
+\\
+&\gate{U}
+&\rstick{\vec{\bitb}}\qw
+}
+\end{array}
+\;\;\;=
+{U(\vec{\bitb})}^{\pi_1(\vec{\bita})}
+\;.
+\label{eq-oval-sq}
+\eeq}
+We will refer to an operator of the form
+Eq.(\ref{eq-oval-sq})
+as a {\bf projector controlled unitary operator},
+or simply as a {\bf controlled U},
+in analogy to a controlled NOT,
+for which $U=\sigx=$ the NOT operator.
+The set of operators of the form
+Eq.(\ref{eq-oval-oval})
+is a subset of the set of operators of the form
+Eq.(\ref{eq-oval-sq}). Indeed,
+given any projection operator
+$\pi_2(\vec{\bitb})$, one can always define
+the unitary operator
+$U(\vec{\bitb})
+ = (-1)^{\pi_2(\vec{\bitb})}
+= 1 - 2\pi_2(\vec{\bitb})$. Hence,
+
+
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{\pi_1}\qwx[1]
+&\qw
+\\
+&\gate{(-1)^{\pi_2}}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{\pi_1}\qwx[1]
+&\qw
+\\
+&\ovalgate{\pi_2}
+&\qw
+}
+\end{array}
+\;.
+\eeq
+Special cases of
+Eqs.(\ref{eq-oval-oval}) and
+(\ref{eq-oval-sq}) are:
+
+\beq
+(-1)^{n(\bita)n(\bitb)}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\dotgate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{n}\qwx[1]
+&\qw
+\\
+&\ovalgate{n}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{n}\qwx[1]
+&\qw
+\\
+&\gate{\sigz}
+&\qw
+}
+\end{array}
+\;,
+\eeq
+
+\beq
+\cnot{\bita}{\bitb}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{n}\qwx[1]
+&\qw
+\\
+&\ovalgate{n_X}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{n}\qwx[1]
+&\qw
+\\
+&\gate{\sigx}
+&\qw
+}
+\end{array}
+\;,
+\eeq
+and, for any $2\times 2$ unitary matrix $U$:
+
+\beq
+U(\bitb)^{n(\bita)}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{n}\qwx[1]
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+\;,
+\label{eq-n-one-cu}
+\eeq
+\beq
+U(\bitc)^{n(\bita)n(\bitb)}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[2]
+&\qw
+\\
+&\dotgate
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\ovalgate{n}\qwx[1]
+&\qw
+\\
+&\ovalgate{n}\qwx[1]
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+\;.
+\label{eq-n-two-cu}
+\eeq
+We will refer to the
+operator of Eq.(\ref{eq-n-one-cu})
+as an $n^1$ {\bf controlled U},
+and to the operator of
+Eq.(\ref{eq-n-two-cu})
+as an $n^2$ {\bf controlled U}.
+
+Suppose $U$ is any $2\times 2$ unitary matrix.
+It can always be diagonalized as follows:
+
+\beq
+U = V diag(
+e^{i\theta_1},
+e^{i\theta_2})
+V^\dagger
+\;,
+\eeq
+where $\theta_1, \theta_2$
+are reals numbers and
+$V$ is a unitary matrix. If we set
+
+\beq
+\Delta = \frac{\theta_1-\theta_2}{2}
+\;,
+\eeq
+and
+
+\beq
+\overline{\theta} = \frac{\theta_1+\theta_2}{2}
+\;,
+\eeq
+then
+
+\beq
+U= e^{i\overline{\theta}}
+V e^{i\Delta \sigz}
+V^\dagger
+\;.
+\label{eq-u-eigen-decomp}
+\eeq
+
+
+\claim
+
+For any $2\times 2$ unitary matrix
+$U(\bitb)$ given by Eq.(\ref{eq-u-eigen-decomp}),
+and projection operator $\pi_1(\vecbita)$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{\pi_1}\qwx[1]
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\gate{e^{i\overline{\theta}\pi_1}}
+&\qw
+&\ovalgate{\pi_1}\qwx[1]
+&\qw
+&\ovalgate{\pi_1}\qwx[1]
+&\qw
+&\rstick{\vec{\bita}}\qw
+\\
+&\gate{V}
+&\gate{e^{i\frac{\Delta}{2}\sigz}}
+&\timesgate
+&\gate{e^{-i\frac{\Delta}{2}\sigz}}
+&\timesgate
+&\gate{V^\dagger}
+&\rstick{\bitb}\qw
+}
+\end{array}
+\;\;\;\;.
+\label{eq-pi-contr-u-decompo}
+\eeq}
+\proof
+Check that both sides agree when $\pi_1$
+equals 0 and 1.
+\altproof
+\beq
+U(\bitb)^{n(\bita)}=
+e^{i\overline{\theta}n(\bita)}
+V(\bitb) e^{i\Delta \sigz(\bitb)n(\bita)}
+V(\bitb)^\dagger
+\;.
+\eeq
+
+\beqa
+e^{i\Delta \sigz(\bitb)n(\bita)}
+&=&
+e^{i\Delta \sigz(\bitb)
+\frac{1}{2}[1-\sigz(\bita)]}
+\\
+&=&
+e^{i \frac{\Delta}{2}\sigz(\bitb)}
+e^{-i \frac{\Delta}{2}
+\sigz(\bitb)
+\sigz(\bita)}
+\\
+&=&
+e^{i \frac{\Delta}{2}\sigz(\bitb)}
+\sigx(\bitb)^{n(\bita)}
+e^{-i \frac{\Delta}{2}
+\sigz(\bitb)}
+\sigx(\bitb)^{n(\bita)}
+\;.
+\eeqa
+This proof still holds if we  replace $n(\bita)$
+by $\pi_1(\vec{\bita})$ and $\sigz(\bita)$
+by $(-1)^{\pi_1(\vec{\bita})}$.
+\qed
+
+Examples of Eq.(\ref{eq-pi-contr-u-decompo})
+are:
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{e^{i\bar{\theta}n}}
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+\\
+&\gate{V}
+&\gate{e^{i\frac{\Delta}{2}\sigz}}
+&\timesgate
+&\gate{e^{-i\frac{\Delta}{2}\sigz}}
+&\timesgate
+&\gate{V^\dagger}
+&\qw
+}
+\end{array}
+\;,
+\label{eq-n-one-contr-u}
+\eeq}
+and
+
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\dotgate\qwx[1]
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+\\
+&\gate{e^{i\bar{\theta}n}}
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+\\
+&\gate{V}
+&\gate{e^{i\frac{\Delta}{2}\sigz}}
+&\timesgate
+&\gate{e^{-i\frac{\Delta}{2}\sigz}}
+&\timesgate
+&\gate{V^\dagger}
+&\qw
+}
+\end{array}
+\;.
+\label{eq-n-two-contr-u}
+\eeq}
+Eqs.(\ref{eq-n-one-contr-u}) and
+(\ref{eq-n-two-contr-u}) suggest a way
+of converting any $n^r$ controlled
+$U$, for an integer $r\geq 1$,
+into a sequence of gates containing no
+controlled $U$'s but containing
+$n^s$ controlled NOTs,
+where $s\leq r$.
+
+\claim(Permuting two projector
+controlled $U$'s)
+
+Suppose $\pi_1(\vecbita), \pi_2(\vecbita)$
+are  commuting
+($[\pi_1, \pi_2]=0$)
+projection operators
+and $U_1(\vecbitb), U_2(\vecbitb)$
+are unitary operators. Then
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\ovalgate{\pi_1}\qwx[1]
+&\ovalgate{\pi_2}\qwx[1]
+&\qw
+\\
+&\gate{U_1}
+&\gate{U_2}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\ovalgate{\pi_1\pi_2}\qwx[1]
+&\ovalgate{\pi_2}\qwx[1]
+&\ovalgate{\pi_1}\qwx[1]
+&\rstick{\vecbita}\qw
+\\
+&\gate{U_1 U_2 U_1^\dagger U_2^\dagger}
+&\gate{U_2}
+&\gate{U_1}
+&\rstick{\vecbitb}\qw
+\gategroup{1}{2}{2}{2}{.7em}{.}
+}
+\end{array}
+\;\;\;\;.
+\label{eq-perm-two-pi-contr-u}
+\eeq}
+(Dotted box encloses wake.)
+Algebraically,
+
+\beq
+U_1(\vecbitb)^{\pi_1(\vecbita)}
+U_2(\vecbitb)^{\pi_2(\vecbita)}
+=
+(U_1 U_2 U^\dagger_1 U^\dagger_2)^{\pi_1\pi_2}
+U_2^{\pi_2}U_1^{\pi_1}
+\;.
+\eeq
+\proof
+Check that both sides of
+Eq.(\ref{eq-perm-two-pi-contr-u})
+agree when $(\pi_1,\pi_2)$
+equals each element of $Bool^2$.
+\qed
+
+
+\claim
+
+For any projection operator
+$\pi_1(\vec{\bita})$ and
+unitary matrix $U(\vec{\bitc})$,
+
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\ovalgate{\pi_1}\qwx[1]
+&\qw
+&\qw
+\\
+&\timesgate
+&\dotgate\qwx[1]
+&\qw
+\\
+&\qw
+&\gate{U}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\ovalgate{\pi_1}\qwx[2]
+&\ovalgate{\pi_1}\qwx[2]
+&\qw
+&\ovalgate{\pi_1}\qwx[1]
+&\rstick{\vec{\bita}}\qw
+\\
+&\dotgate
+&\qw
+&\dotgate\qwx[1]
+&\timesgate
+&\rstick{\bitb}\qw
+\\
+&\gate{U^{-2}}
+&\gate{U}
+&\gate{U}
+&\qw
+&\rstick{\vec{\bitc}}\qw
+\gategroup{1}{2}{3}{3}{.7em}{.}
+}
+\end{array}
+\;\;\;\;.
+\label{eq-perm-gen-times-dot}
+\eeq}
+(Dotted box encloses wake.)
+\proof
+Consider Eq.(\ref{eq-perm-two-pi-contr-u})
+with the following replacements:
+$U_1\rarrow \sigx(\bitb)$,
+$U_2\rarrow U(\vecbitc)^{n(\bitb)}$,
+$\pi_2\rarrow 1$.
+Thus,
+
+\beq
+U_1 U_2 U_1^\dagger U_2^\dagger
+\rarrow
+\sigx(\bitb)
+U(\vecbitc)^{n(\bitb)}
+\sigx(\bitb)
+U(\vecbitc)^{-n(\bitb)}
+=U(\vecbitc)^{\nbar(\bitb)-n(\bitb)}
+=U(\vecbitc)^{1-2n(\bitb)}
+\;.
+\eeq
+\qed
+
+\claim
+
+For any projection operator
+$\pi_1(\vec{\bita})$ and
+unitary matrix $U(\vec{\bitc})$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\ovalgate{\pi_1}\qwx[2]
+&\qw
+\\
+&\dotgate
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\ovalgate{\pi_1}\qwx[2]
+&\ovalgate{\pi_1}\qwx[1]
+&\qw
+&\ovalgate{\pi_1}\qwx[1]
+&\qw
+&\rstick{\vec{\bita}}\qw
+\\
+&\qw
+&\timesgate
+&\dotgate\qwx[1]
+&\timesgate
+&\dotgate\qwx[1]
+&\rstick{\bitb}\qw
+\\
+&\gate{U^{\frac{1}{2}}}
+&\qw
+&\gate{U^{\frac{-1}{2}}}
+&\qw
+&\gate{U^{\frac{1}{2}}}
+&\rstick{\vec{\bitc}}\qw
+}
+\end{array}
+\;\;\;.
+\label{eq-pi-n-contr-u}
+\eeq}
+\proof
+Apply Eq.(\ref{eq-perm-gen-times-dot})
+to the right hand side of
+Eq.(\ref{eq-pi-n-contr-u}) to permute
+$\sigx(\bitb)^{\pi_1(\vecbita)}$
+and
+$U(\vecbitc)^{\frac{-1}{2}n(\bitb)}$.
+\qed
+
+Examples of Eq.(\ref{eq-pi-n-contr-u}) are
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[2]
+&\qw
+\\
+&\dotgate
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[2]
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+\\
+&\qw
+&\timesgate
+&\dotgate\qwx[1]
+&\timesgate
+&\dotgate\qwx[1]
+&\qw
+\\
+&\gate{U^{\frac{1}{2}}}
+&\qw
+&\gate{U^{\frac{-1}{2}}}
+&\qw
+&\gate{U^{\frac{1}{2}}}
+&\qw
+}
+\end{array}
+\;,
+\label{eq-n-two-sq-root-u}
+\eeq}
+and
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\dotgate\qwx[2]
+&\qw
+\\
+&\dotgate
+&\qw
+\\
+&\gate{U}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+\\
+&\dotgate\qwx[2]
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+\\
+&\qw
+&\timesgate
+&\dotgate\qwx[1]
+&\timesgate
+&\dotgate\qwx[1]
+&\qw
+\\
+&\gate{U^{\frac{1}{2}}}
+&\qw
+&\gate{U^{\frac{-1}{2}}}
+&\qw
+&\gate{U^{\frac{1}{2}}}
+&\qw
+}
+\end{array}
+\;.
+\label{eq-n-three-sq-root-u}
+\eeq}
+
+Eqs.(\ref{eq-n-two-sq-root-u})
+and (\ref{eq-n-three-sq-root-u})
+suggest a way of converting
+an $n^r$ controlled $U$,
+for an integer $r\geq 2$,
+into a sequence of gates
+that contains no controlled $U$'s
+except $n^1$ controlled $U$'s.
+
+\claim
+
+Suppose $\pi_1(\vecbita)$
+and $\pi_2(\vecbita)$ are
+commuting projection operators. Then
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{\pi_1}\qwx[1]
+&\ovalgate{\pi_2}\qwx[1]
+&\qw
+\\
+&\timesgate
+&\dotgate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\gate{(-1)^{\pi_1\pi_2}}
+&\ovalgate{\pi_2}\qwx[1]
+&\ovalgate{\pi_1}\qwx[1]
+&\rstick{\vec{\bita}}\qw
+\\
+&\qw
+&\dotgate
+&\timesgate
+&\rstick{\bitb}\qw
+\gategroup{1}{2}{1}{2}{.7em}{.}
+}
+\end{array}
+\;\;\;.
+\label{eq-perm-gen-chain}
+\eeq}
+(Dotted box encloses wake.)
+\proof
+Consider Eq.(\ref{eq-perm-two-pi-contr-u})
+with the following replacements:
+$U_1\rarrow \sigx(\bitb)$,
+$U_2\rarrow \sigz(\bitb)$.
+Thus,
+
+\beq
+U_1 U_2 U_1^\dagger U_2^\dagger
+\rarrow
+\sigx\sigz\sigx\sigz = -1
+\;.
+\eeq
+\qed
+
+
+Eq.(\ref{eq-perm-gen-chain})
+can be used to transform
+sequences of $n^r$ controlled
+NOTs. For example,
+the following identity
+can be easily proven by applying
+Eq.(\ref{eq-perm-gen-chain}):
+
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\qw
+&\dotgate\qwx[4]
+&\qw
+&\dotgate\qwx[4]
+&\qw
+\\
+&\dotgate\qwx[2]
+&\qw
+&\dotgate\qwx[2]
+&\qw
+&\qw
+\\
+&\dotgate
+&\qw
+&\dotgate
+&\qw
+&\qw
+\\
+&\timesgate
+&\dotgate
+&\timesgate
+&\dotgate
+&\qw
+\\
+&\qw
+&\timesgate
+&\qw
+&\timesgate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[4]
+&\qw
+\\
+&\dotgate
+&\qw
+\\
+&\dotgate
+&\qw
+\\
+&\qw
+&\qw
+\\
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-n-two-to-n-three}
+\eeq
+Note that Eq.(\ref{eq-n-two-to-n-three})
+reduces an $n^3$ controlled NOT
+into a sequence of $n^2$ controlled NOTs.
+
+\claim
+
+For any real number $\theta$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ovalgate{\pi_1}\qwx[1]
+&\qw
+&\qw
+\\
+&\timesgate
+&\gate{e^{i\theta\sigz}}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\gate{\pi_1}\qwx[1]
+&\qw
+&\gate{\pi_1}\qwx[1]
+&\rstick{\vec{\bita}}\qw
+\\
+&\gate{e^{-2i\theta\sigz}}
+&\gate{e^{i\theta\sigz}}
+&\timesgate
+&\rstick{\bitb}\qw
+\gategroup{1}{2}{2}{2}{.7em}{.}
+}
+\end{array}
+\;\;\;.
+\eeq}
+(Dotted box encloses wake.)
+\proof
+Consider Eq.(\ref{eq-perm-two-pi-contr-u})
+with the following replacements:
+$U_1\rarrow \sigx(\bitb)$,
+$U_2\rarrow e^{i\theta \sigz(\bitb)}$,
+$\pi_2\rarrow 1$.
+Thus,
+
+\beq
+U_1 U_2 U_1^\dagger U_2^\dagger
+\rarrow
+\sigx(\bitb)
+e^{i\theta \sigz(\bitb)}
+\sigx(\bitb)
+e^{-i\theta \sigz(\bitb)}
+=e^{-2i\theta \sigz(\bitb)}
+\;.
+\eeq
+\qed

@@ -1,0 +1,500 @@
+\chapter{Bell States}
+
+Define the Bell state
+$\ket{B^{00}}$ by
+
+\grayeq{
+\beq
+\ket{B^{00}}=
+\frac{1}{\sqrt{2}}(
+\ket{00} + \ket{11} )
+\;.
+\eeq}
+
+\claim
+
+\grayeq{
+\beq
+\ket{B^{00}}_{\bita\bitb}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\dotgate\qwx[1]
+&\gate{H}
+&\gate{\ket{0}}
+\\
+&\qw
+&\timesgate
+&\qw
+&\gate{\ket{0}}
+}
+\end{array}
+\;.
+\eeq}
+\proof
+\beqa
+\cnot{\bita}{\bitb} H(\bita)
+\ket{00}_{\bita\bitb}&=&
+\sum_{a\in Bool}
+\cnot{\bita}{\bitb}
+\ket{a}_\bita
+\bra{a}_\bita
+H(\bita)
+\ket{00}\\
+&=&
+\sum_a
+\sigx^a(\bitb)
+\ket{a,0}_{\bita\bitb}
+(\frac{1}{\sqrt{2}})\\
+&=&
+\frac{1}{\sqrt{2}}
+\sum_a \ket{a,a}
+\;.
+\eeqa
+\qed
+
+\claim
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\gate{\sigx}
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigx}
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\qw
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+\;,
+\eeq}
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\gate{\sigz}
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigz}
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\qw
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+\;,
+\eeq}
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\gate{H}
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{H}
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\qw
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+\;.
+\label{eq-move-h}
+\eeq}
+\proof
+\beq
+\sigx(\bitb)\sum_{a\in Bool}\ket{a,a}=
+\sum_a \ket{a,\overline{a}}=
+\sum_a \ket{\overline{a},a}=
+\sigx(\bita)\sum_a\ket{a,a}
+\;.
+\eeq
+
+\beq
+\sigz(\bitb)\sum_{a\in Bool}\ket{a,a}=
+\sum_a (-1)^a\ket{a,a}=
+\sigz(\bita)\sum_a\ket{a,a}
+\;.
+\eeq
+
+Eq.(\ref{eq-move-h}) follows from
+the previous two equations and
+the observation that $H = \frac{1}{\sqrt{2}}
+(\sigx + \sigz)$.
+\qed
+
+Define the Bell states $\ket{B^{x,z}}$
+and $\ket{B_{x,z}}$ for $x,z\in Bool$ by
+
+\grayeq{
+\beq
+\ket{B_{x,z}}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\gate{\sigx^x\sigz^z}
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+\;,
+\eeq}
+and
+
+\grayeq{
+\beq
+\ket{B^{x,z}}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigx^x\sigz^z}
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\qw
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+\;.
+\eeq}
+Note that $\ket{B^{00}}=\ket{B_{00}}$. Since
+
+\grayeq{
+\beqa
+\ket{B_{x,z}}&=&
+\sigx^x(\bitb)\sigz^z(\bitb)
+(\frac{1}{\sqrt{2}})
+(\ket{00} + \ket{11})_{\bita\bitb}\\
+&=&
+\frac{1}{\sqrt{2}}
+(\ket{0x} + (-1)^z\ket{1\overline{x}})
+\;,
+\eeqa}
+it follows that
+
+\grayeq{
+\beq
+\begin{array}{rrr}
+\ket{B_{00}} =
+&1\ket{B_{00}}=
+&\frac{1}{\sqrt{2}}
+(\ket{00} + \ket{11})
+\\
+\ket{B_{10}} =
+&\sigx(\bitb)\ket{B_{00}}=
+&\frac{1}{\sqrt{2}}
+(\ket{01} + \ket{10})
+\\
+\ket{B_{11}} =
+&(-i)\sigy(\bitb)\ket{B_{00}}=
+&\frac{1}{\sqrt{2}}
+(\ket{01} - \ket{10})
+\\
+\ket{B_{01}} =
+&\sigz(\bitb)\ket{B_{00}}=
+&\frac{1}{\sqrt{2}}
+(\ket{00} - \ket{11})
+\end{array}
+\;.
+\eeq}
+
+\claim
+
+For any $x,z\in Bool$,
+
+\grayeq{
+\beqa
+\ket{B_{x,z}}_{\bita\bitb}&=&
+E(\bita, \bitb)
+\ket{B^{x,z}}_{\bita\bitb}
+\label{eq-e-raises-xz}
+\\
+&=&
+(-1)^{xz}
+\ket{B^{x,z}}_{\bita\bitb}
+\;.
+\label{eq-bell-eva}
+\eeqa}
+Thus,
+$\ket{B^{x,z}}$ and $\ket{B_{x,z}}$
+are both eigenfunctions of $E$ with
+eigenvalue $(-1)^{xz}$.
+\proof
+Eq.(\ref{eq-e-raises-xz}) is
+obvious. Eq.(\ref{eq-bell-eva})
+follows from
+
+\beqa
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\gate{\sigx^x\sigz^z}
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigz^z}
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\gate{\sigx^x}
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigz^z\sigx^x}
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\qw
+&\ghost{\ket{B^{00}}}
+}
+\end{array}\\
+&=&(-1)^{xz}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigx^x\sigz^z}
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\qw
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+\;.
+\eeqa
+\qed
+
+\claim
+
+For any $x,z\in Bool$,
+
+\grayeq{
+\beq
+\ket{B_{x,z}}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\gate{H}
+&\gate{\ket{z}}
+\\
+&\timesgate
+&\qw
+&\gate{\ket{x}}
+}
+\end{array}
+\;,
+\eeq}
+
+\grayeq{
+\beq
+\ket{B^{x,z}}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\timesgate\qwx[1]
+&\qw
+&\gate{\ket{x}}
+\\
+&\dotgate
+&\gate{H}
+&\gate{\ket{z}}
+}
+\end{array}
+\;.
+\eeq}
+\proof
+\beqa
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\gate{\sigx^x\sigz^z}
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigz^z}
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\gate{\sigx^x}
+&\ghost{\ket{B^{00}}}
+}
+\end{array}\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigz^z}
+&\dotgate\qwx[1]
+&\gate{H}
+&\gate{\ket{0}}
+\\
+&\gate{\sigx^x}
+&\timesgate
+&\qw
+&\gate{\ket{0}}
+}
+\end{array}\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\gate{H}
+&\gate{\ket{z}}
+\\
+&\timesgate
+&\qw
+&\gate{\ket{x}}
+}
+\end{array}
+\;.
+\eeqa
+\qed
+
+\claim (Orthonormality)
+
+\grayeq{
+\beq
+\av{B_{xz}|B_{x'z'}} = \delta^{x',z'}_{x,z}
+\;
+\eeq}
+for any $x,z,x'z'\in Bool$, and
+
+\grayeq{
+\beq
+\sum_{(x,z)\in Bool^2}\ket{B_{xz}}\bra{B_{xz}} = 1
+\;.
+\eeq}
+\proof
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\freegate{\bra{z'}}
+&\gate{H}
+&\dotgate\qwx[1]
+&\dotgate\qwx[1]
+&\gate{H}
+&\gate{\ket{z}}
+\\
+&\freegate{\bra{x'}}
+&\qw
+&\timesgate
+&\timesgate
+&\qw
+&\gate{\ket{x}}
+}
+\end{array}
+=
+\delta^{x',z'}_{x,z}
+\;.
+\eeq
+
+
+\beq
+\sum_{x,z}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\dotgate\qwx[1]
+&\gate{H}
+&\gate{\ket{z}\bra{z}}
+&\gate{H}
+&\dotgate\qwx[1]
+&\qw
+\\
+&\qw
+&\timesgate
+&\qw
+&\gate{\ket{x}\bra{x}}
+&\qw
+&\timesgate
+&\qw
+}
+\end{array}
+=1
+\;.
+\eeq
+\qed
+
+
+\claim
+
+\grayeq{
+For all $a,b,x,z\in Bool$,
+if $P(a,b|x,z)=|\av{a,b|B_{x,z}}|^2$,
+then the marginals $P(a|x,z)$
+and $P(b|x,z)$ are both identically equal to
+$\frac{1}{2}$.}
+\proof
+\beqa
+\sum_a P(a,b|x,z) &=&
+\sum_a
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{z}}
+&\gate{H}
+&\dotgate\qwx[1]
+&\gate{\ket{a}\bra{a}}
+&\dotgate\qwx[1]
+&\gate{H}
+&\gate{\ket{z}}
+\\
+\freegate{\bra{x}}
+&\qw
+&\timesgate
+&\gate{\ket{b}\bra{b}}
+&\timesgate
+&\qw
+&\gate{\ket{x}}
+}
+\end{array}
+\\
+&=&
+\sum_a
+\left|
+\frac{(-1)^{za}}{\sqrt{2}}
+\bra{x} \sigx^a \ket{b}
+\right|^2\\
+&=&
+\frac{1}{2}
+\sum_a \left|
+\av{x|a\oplus b}
+\right|^2
+\\
+&=&
+\frac{1}{2}\sum_a \delta_a^{x\oplus b}
+= \frac{1}{2}
+\;.
+\eeqa
+\qed

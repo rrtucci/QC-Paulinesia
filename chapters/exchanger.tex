@@ -1,0 +1,451 @@
+\chapter{Exchanger}
+
+We define the Exchanger
+(a.k.a. Swapper or Exchange Operator
+or Bit Transposition) by
+
+\grayeq{
+\beq
+E(\bita, \bitb)
+\ket{a, b}_{\bita\bitb}
+=
+\ket{b, a}_{\bita\bitb}
+\;,
+\eeq}
+for all $a, b \in Bool$.
+Therefore
+
+\grayeq{
+\beq
+E(\bita, \bitb) = E(\bitb, \bita)
+\;,
+\eeq}
+and
+
+\grayeq{
+\beq
+E(\bita, \bitb)^2 = 1
+\;.
+\eeq}
+Throughout QC Paulinesia,
+we will represent Exchanger by
+
+\grayeq{
+\beq
+E(\bita, \bitb)
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\uarrowgate\qwx[1]
+&\qw
+\\
+&\darrowgate
+&\qw
+}
+\end{array}
+\;.
+\eeq}
+
+\claim
+
+\grayeq{
+\beq
+E(\bita, \bitb)=
+\cnot{\bitb}{\bita}
+\cnot{\bita}{\bitb}
+\cnot{\bitb}{\bita}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[1]
+& \dotgate\qwx[1]
+& \timesgate\qwx[1]
+&\qw \\
+&\dotgate
+& \timesgate
+& \dotgate
+& \qw
+}
+\end{array}
+\;.
+\eeq}
+\proof
+\beqa
+\cnot{\bitb}{\bita}
+\cnot{\bita}{\bitb}
+\cnot{\bitb}{\bita}
+\ket{a,b}_{\bita\bitb}&=&
+\cnot{\bitb}{\bita}
+\cnot{\bita}{\bitb}
+\ket{a \oplus b,b}\\
+&=&
+\cnot{\bitb}{\bita}
+\ket{a \oplus b,a}\\
+&=&
+\ket{b,a}
+\;.
+\eeqa
+\qed
+
+\claim
+If  $U$ and $V$
+are $2\times2$ unitary matrices, then
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\gate{U}
+&\uarrowgate\qwx[1]
+&\gate{V^\dagger}
+&\qw
+\\
+&\gate{V}
+&\darrowgate
+&\gate{U^\dagger}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\uarrowgate\qwx[1]
+&\qw
+\\
+&\darrowgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-exc-two-u-invar}
+\eeq}
+\proof
+Obvious.
+\qed
+
+\claim
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[1]
+& \dotgate\qwx[1]
+& \timesgate\qwx[1]
+&\qw
+\\
+&\dotgate
+& \timesgate
+& \dotgate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[1]
+& \ogate\qwx[1]
+& \timesgate\qwx[1]
+&\qw
+ \\
+&\ogate
+& \timesgate
+& \ogate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ogate
+& \timesgate
+& \ogate
+&\qw
+ \\
+&\timesgate\qwx[-1]
+& \ogate\qwx[-1]
+& \timesgate\qwx[-1]
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate
+& \timesgate
+& \dotgate
+&\qw
+ \\
+&\timesgate\qwx[-1]
+& \dotgate\qwx[-1]
+& \timesgate\qwx[-1]
+&\qw
+}
+\end{array}
+\;.
+\eeq
+}
+\proof
+By virtue of Eq.(\ref{eq-exc-two-u-invar}),
+
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[1]
+& \dotgate\qwx[1]
+& \timesgate\qwx[1]
+&\qw
+\\
+&\dotgate
+& \timesgate
+& \dotgate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\gate{\sigx}
+&\timesgate\qwx[1]
+& \dotgate\qwx[1]
+& \timesgate\qwx[1]
+&\gate{\sigx}
+&\qw
+ \\
+&\gate{\sigx}
+&\dotgate
+& \timesgate
+& \dotgate
+&\gate{\sigx}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[1]
+& \ogate\qwx[1]
+& \timesgate\qwx[1]
+&\qw
+\\
+&\ogate
+& \timesgate
+& \ogate
+&\qw
+}
+\end{array}
+\;.
+\eeq
+Likewise,
+
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[1]
+& \dotgate\qwx[1]
+& \timesgate\qwx[1]
+&\qw
+\\
+&\dotgate
+& \timesgate
+& \dotgate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\gate{H}
+&\timesgate\qwx[1]
+& \dotgate\qwx[1]
+& \timesgate\qwx[1]
+&\gate{H}
+&\qw
+ \\
+&\gate{H}
+&\dotgate
+& \timesgate
+& \dotgate
+&\gate{H}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate
+& \timesgate
+& \dotgate
+&\qw
+ \\
+&\timesgate\qwx[-1]
+& \dotgate\qwx[-1]
+& \timesgate\qwx[-1]
+&\qw
+}
+\end{array}
+\;.
+\eeq
+\qed
+
+
+\claim
+
+\grayeq{
+\beq
+E(\bita, \bitb)
+=
+[n(\bita)n(\bitb) + \nbar(\bita)\nbar(\bitb)]
++
+\sigx(\bita)\sigx(\bitb)
+[n(\bita)\nbar(\bitb) + \nbar(\bita)n(\bitb)]
+\;.
+\label{eq-exc-n-nbar}
+\eeq}
+\proof
+Let RHS be the right hand side
+of Eq.(\ref{eq-exc-n-nbar}).
+For any $a,b\in Bool$,
+if $a=b$, $RHS\ket{a,b}=\ket{a,b}$,
+whereas when $a\neq b$,
+$RHS\ket{a,b}=\ket{\overline{a},\overline{b}}$.
+\qed
+
+For any $x,z\in Bool$ and bit $\bita$, let
+$\Lambda^{x,z}(\bita) =
+\sigx^x(\bita)
+\sigz^z(\bita)$. Note that
+$[\Lambda^{x,z}]^\dagger
+ = (-1)^{xz}\Lambda^{x,z}$
+ and that
+ $\Lambda^{00} = 1$,
+ $\Lambda^{10} = \sigx$,
+ $\Lambda^{11} = (-i)\sigy$,
+ $\Lambda^{01} = \sigz$.
+ As usual, let
+ $\sigma_{w_1 w_2} =
+ \sigma_{w_1}\otimes\sigma_{w_2}$
+ for $w_1, w_2 \in \{X,Y,Z\}$.
+
+\claim
+
+\grayeq{
+\beqa
+E(\bita, \bitb)
+&=&
+\frac{1}{2}
+\sum_{(x,z)\in Bool^2}
+\Lambda^{xz}(\bita)
+[\Lambda^{xz}(\bitb)]^\dagger\\
+&=&
+\frac{1}{2}
+( 1
++ \sigma_{XX}
++ \sigma_{YY}
++ \sigma_{ZZ})
+(\bita, \bitb)\\
+&=&
+\frac{1}{2}[
+1 + \vec{\sigma}(\bita)
+\cdot \vec{\sigma}(\bitb)]
+\label{eq-exc-dot-prod}
+\;.
+\eeqa}
+\proof
+\beqa
+\lefteqn{\frac{1}{2}
+\sum_{x,z}
+\Lambda^{xz}(\bita)(-1)^{xz}
+\Lambda^{xz}(\bitb)
+\ket{a,b}_{\bita, \bitb} =}\\
+&=&
+\frac{1}{2}
+\sum_{x,z}
+(-1)^{xz}
+(\sigx^x\sigz^z \ket{a}_\bita)
+(\sigx^x\sigz^z \ket{b}_\bitb)\\
+&=&
+\frac{1}{2}
+\sum_{x,z}
+(-1)^{(x+a+b)z}
+\ket{a\oplus x, b \oplus x}\\
+&=&
+\frac{1}{2}
+\sum_x 2 \delta^x_{a\oplus b}
+\ket{a\oplus x, b \oplus x}\\
+&=&
+\ket{b,a}
+\;.
+\eeqa
+\altproof
+Replace the 3 CNOTs
+in
+$E(\bita, \bitb) =
+\cnot{\bitb}{\bita}
+\cnot{\bita}{\bitb}
+\cnot{\bitb}{\bita}$
+by
+$\cnot{\bitb}{\bita}=
+\frac{1}{2} \sum_{x,z} \sigx^x(\bita)
+\sigz^z(\bitb)(-1)^{xz}$.
+Details left to the reader.
+\qed
+
+We could
+have predicted that
+ $E(\bita, \bitb)$ would have the form
+ Eq.(\ref{eq-exc-dot-prod})
+ due to the invariance of Exchanger
+ under identical rotations of both bits;
+ that is, due to
+ Eq.(\ref{eq-exc-two-u-invar})
+ with
+ $U=V=e^{i\vec{\theta}
+ \cdot \vec{\sigma}}$,
+ where $\vec{\theta}$ is
+ an arbitrary
+ 3 dimensional real vector.
+
+ \claim
+
+ \grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\uarrowgate\qwx[2]
+&\qw
+\\
+&\qw
+&\qw
+\\
+&\darrowgate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\uarrowgate\qwx[1]
+&\qw
+&\uarrowgate\qwx[1]
+&\qw
+\\
+&\darrowgate
+&\uarrowgate\qwx[1]
+&\darrowgate
+&\qw
+\\
+&\qw
+&\darrowgate
+&\qw
+&\qw
+}
+\end{array}
+\;.
+\eeq}
+\proof
+Check that both sides map
+$\bita\rarrow\bitc$,
+$\bitb\rarrow\bitb$,
+$\bitc\rarrow\bita$.
+\qed

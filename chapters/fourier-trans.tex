@@ -1,0 +1,644 @@
+\chapter{Quantum Fourier Transform}
+
+For this section, it is especially
+important that
+the reader read the Notation section
+of QC Paulinesia.
+The Notation section explains
+what we mean by natural labelling.
+Natural labelling will
+be used in this section.
+
+
+Given a vector
+$\vec{x}=(x_{\nb-1},\ldots, x_1, x_0 )\in Bool^\nb$,
+let
+$R\vec{x}=(x_0, x_1, \ldots,x_{\nb-1})$.
+Thus $R$ is the matrix that reverses the components
+of an $\nb$ dimensional vector.
+For example, for $\nb=4$,
+
+\beq
+R =
+\left(
+\begin{array}{cccc}
+&&&1\\
+\text{\huge 0}&&1& \\
+&1&& \\
+1&&&\text{\huge 0} \\
+\end{array}
+\right)
+\;.
+\eeq
+We will also use $R$ to denote
+a map from the Hilbert space of $\nb$
+qubits to itself such that $R\ket{\vec{x}}=
+\ket{R\vec{x}}$ for $\vec{x}\in Bool^\nb$.
+We will also use $R$ to denote
+the map $R:Z_{0,\nb-1}\rarrow Z_{0,\nb-1}$
+such that $R(i)=\nb-1-i$. For example, for
+$\nb=4$,
+$R$  maps $0\rarrow 3$, $1\rarrow 2$,
+$2\rarrow 1$, $3\rarrow 0$.
+
+For any $\bita, \bitb \in Z_{0,\nb-1}$, define
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\dotgate
+&\qw
+}
+\end{array}
+=
+V(\bita, \bitb)=
+\exp[ i\pi
+\frac{n(\bita)n(\bitb)}{2^{|\bita-\bitb|}}
+]
+=
+(-1)^\frac{n(\bita)n(\bitb)}{2^{|\bita-\bitb|}}
+\;.
+\label{eq-fou-v-def}
+\eeq}
+Note that normally in QC Paulinesia, we use
+$
+\begin{array}{c}
+\Qcircuit @C=1em @R=1.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\dotgate
+&\qw
+}
+\end{array}
+=\sigz^{n(\bita)}(\bitb)=
+(-1)^{n(\bita)n(\bitb)}
+\;,
+$
+so the definition given by Eq.(\ref{eq-fou-v-def})
+applies only to this section.
+
+
+For any $x\in Z_{0, \ns-1}$, the
+{\bf Quantum Fourier Transform}
+of $\ket{x}$ is defined by
+
+\grayeq{
+\beq
+U_{FT}\ket{x}=
+\frac{1}{\sqrt{\ns}}
+\sum_{y=0}^{\ns-1}
+e^{ i\frac{2\pi xy}{\ns} }
+\ket{y}
+\;.
+\eeq}
+
+
+Henceforth, for simplicity,
+we will often assume $\nb=4$.
+It will be obvious how to extend our
+arguments to other values of $\nb$.
+
+
+
+\claim
+
+For any
+$\vec{x}=(x_3,x_2,x_1, x_0 )\in Bool^4$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\freemultigate{3}{U_{FT}}
+&\gate{\ket{x_0}}
+\\
+&\freeghost{U_{FT}}
+&\gate{\ket{x_1}}
+\\
+&\freeghost{U_{FT}}
+&\gate{\ket{x_2}}
+\\
+&\freeghost{U_{FT}}
+&\gate{\ket{x_3}}
+}
+\end{array}
+ =
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+&\dotgate\qwx[3]
+&\dotgate\qwx[2]
+&\dotgate\qwx[1]
+&\gate{H}
+&\gate{\ket{x_3}}
+\\
+&\qw
+&\qw
+&\qw
+&\dotgate\qwx[2]
+&\dotgate\qwx[1]
+&\gate{H}
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\gate{\ket{x_2}}
+\\
+&\qw
+&\dotgate\qwx[1]
+&\gate{H}
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\gate{\ket{x_1}}
+\\
+&\gate{H}
+&\dotgate
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\qw
+&\gate{\ket{x_0}}
+}
+\end{array}
+\;,
+\eeq}
+\proof
+
+Recall from the Notation section
+that $\vec{\nu}=(\nb-1,\ldots,2 , 1, 0)$.
+Let
+$n=2^{\vec{\nu}}\cdot \vec{n}$ and
+$x=2^{\vec{\nu}}\cdot \vec{x}$. Then
+
+
+\beqa
+U_{FT}\ket{\vec{x}}_{\vec{\nu}}&=&
+\frac{1}{\sqrt{\ns}}
+e^{ \frac{i 2\pi xn}{\ns} }
+\sum_{\vec{y}\in Bool^\nb}
+\ket{\vec{y}}_{\vec{\nu}}\\
+&=&
+e^{i \frac{2\pi xn}{\ns} }
+H(\vec{\nu})
+\ket{0}_{\vec{\nu}}
+\;.
+\eeqa
+Furthermore,
+
+
+
+\beqa
+\exp[\frac{i 2\pi x n}{16} ]&=&
+e^{\left[
+\frac{i 2\pi }{16}
+(8x_3 + 4x_2 + 2x_1 + x_0  )
+(8n(3) + 4n(2) + 2n(1) + n(0))
+\right]}\\
+&=&
+\exp[i 2\pi
+\left\{
+\begin{array}{l}
+\;\;\;n(3)(\frac{x_0}{2})\\
++n(2)(\frac{x_1}{2}+\frac{x_0}{4})\\
++n(1)(\frac{x_2}{2}+\frac{x_1}{4}+\frac{x_0}{8})\\
++n(0)(\frac{x_3}{2}+\frac{x_2}{4}+\frac{x_1}{8}+\frac{x_0}{16})
+\end{array}
+\right\} ]
+\label{eq-fou-omit-two-pi}
+\;,
+\eeqa
+where, in Eq.(\ref{eq-fou-omit-two-pi}),
+we omitted all terms
+in the argument of the exponential
+that
+yielded contributions of the form
+$e^{i 2\pi (integer)}$.
+
+Note that for any $x\in Bool$
+and bit $\bita$,
+
+\beq
+(-1)^{xn(\bita)}H(\bita)\ket{0}_\bita=
+\sigz^{x}(\bita)H(\bita)\ket{0}_\bita=
+H(\bita)\ket{x}_\bita
+\;.
+\eeq
+Thus,
+
+\beqa
+\lefteqn{\exp[\frac{i 2\pi x n}{16} ]
+H(\vec{\nu})\ket{0}_{\vec{\nu}} =
+\left\{
+\begin{array}{l}
+\exp[i \pi n(3) x_0]H(3)\ket{0}_3\\
+\exp[i \pi n(2)(x_1+\frac{x_0}{2})]H(2)\ket{0}_2\\
+\exp[i \pi n(1)(x_2+\frac{x_1}{2}+\frac{x_0}{4})]H(1)\ket{0}_1\\
+\exp[i \pi n(0)(x_3+\frac{x_2}{2}+\frac{x_1}{4}+\frac{x_0}{8})]H(0)\ket{0}_0
+\end{array}
+\right.}
+\\
+&=&
+\left\{
+\begin{array}{l}
+H(3)\ket{x_0}_3\\
+\exp[i \pi n(2)(\frac{x_0}{2})]H(2)\ket{x_1}_2\\
+\exp[i \pi n(1)(\frac{x_1}{2}+\frac{x_0}{4})]H(1)\ket{x_2}_1\\
+\exp[i \pi n(0)(\frac{x_2}{2}+\frac{x_1}{4}+\frac{x_0}{8})]H(0)\ket{x_3}_0
+\end{array}
+\right.
+\\
+&=&
+\left\{
+\begin{array}{l}
+H(3)\\
+\exp[i \pi n(2)(\frac{n(3)}{2})]H(2)\\
+\exp[i \pi n(1)(\frac{n(2)}{2}+\frac{n(3)}{4})]H(1)\\
+\exp[i \pi n(0)(\frac{n(1)}{2}+\frac{n(2)}{4}+\frac{n(3)}{8})]H(0)
+\end{array}
+\right\}R\ket{\vec{x}}
+\\
+&=&
+H(3)
+V(3,2)
+H(2)
+V(3,1)V(2,1)
+H(1)
+V(3,0)V(2,0)V(1,0)
+H(0)
+R\ket{\vec{x}}
+\;.
+\eeqa
+\qed
+
+\claim(3-2-1 form equals 1-2-3 form)
+
+\grayeq{
+\beqa
+U_{FT} &=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+&\dotgate\qwx[3]
+&\dotgate\qwx[2]
+&\dotgate\qwx[1]
+&\gate{H}
+&\multigate{3}{R}
+\\
+&\qw
+&\qw
+&\qw
+&\dotgate\qwx[2]
+&\dotgate\qwx[1]
+&\gate{H}
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\ghost{R}
+\\
+&\qw
+&\dotgate\qwx[1]
+&\gate{H}
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\ghost{R}
+\\
+&\gate{H}
+&\dotgate
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\qw
+&\ghost{R}
+}
+\end{array}
+\label{eq-1-2-3}
+\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\qw
+&\qw
+&\dotgate\qwx[3]
+&\qw
+&\qw
+&\dotgate\qwx[2]
+&\qw
+&\dotgate\qwx[1]
+&\gate{H}
+&\multigate{3}{R}
+\\
+&\qw
+&\qw
+&\dotgate\qwx[2]
+&\qw
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\gate{H}
+&\dotgate
+&\qw
+&\ghost{R}
+\\
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+&\gate{H}
+&\dotgate
+&\dotgate
+&\qw
+&\qw
+&\qw
+&\ghost{R}
+\\
+&\gate{H}
+&\dotgate
+&\dotgate
+&\dotgate
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+&\ghost{R}
+}
+\end{array}
+\;.
+\label{eq-3-2-1}
+\eeqa}
+\proof
+Obvious.
+\qed
+
+We call ``the 1-2-3 form"
+the form of $U_{FT}$ given
+by Eq.(\ref{eq-1-2-3}).
+We call ``the 3-2-1 form" the
+form given by Eq.(\ref{eq-3-2-1}).
+The
+ numbers 1,2,3
+refer to the
+number of $V$ operators
+between the $H$ operators.
+
+
+\claim
+
+$U_{FT}$ is a symmetric matrix.
+\proof
+
+Let $\dagger=$ Hermitian conjugate,
+$*=$ complex conjugate, so $\dagger *=$ transpose.
+For any $x,y\in Z_{0,\ns-1}$,
+
+\beq
+\bra{y} U_{FT} \ket{x} =
+\exp(\frac{i2\pi x y}{\ns}) =
+\bra{y} U_{FT}^{\dagger *} \ket{x}
+\;.
+\eeq
+\altproof
+\beqa
+U_{FT}^{\dagger *} &=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freemultigate{3}{R}
+&\gate{H}
+&\dotgate\qwx[1]
+&\dotgate\qwx[2]
+&\dotgate\qwx[3]
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+\\
+\freeghost{R}
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\gate{H}
+&\dotgate\qwx[1]
+&\dotgate\qwx[2]
+&\qw
+&\qw
+&\qw
+\\
+\freeghost{R}
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\gate{H}
+&\dotgate\qwx[1]
+&\qw
+\\
+\freeghost{R}
+&\qw
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\dotgate
+&\qw
+&\dotgate
+&\gate{H}
+}
+\end{array}\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\qw
+&\qw
+&\dotgate\qwx[3]
+&\qw
+&\qw
+&\dotgate\qwx[2]
+&\qw
+&\dotgate\qwx[1]
+&\gate{H}
+&\multigate{3}{R}
+\\
+&\qw
+&\qw
+&\dotgate\qwx[2]
+&\qw
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\gate{H}
+&\dotgate
+&\qw
+&\ghost{R}
+\\
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+&\gate{H}
+&\dotgate
+&\dotgate
+&\qw
+&\qw
+&\qw
+&\ghost{R}
+\\
+&\gate{H}
+&\dotgate
+&\dotgate
+&\dotgate
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+&\qw
+&\ghost{R}
+}
+\end{array}\\
+&=& U_{FT}
+\;.
+\eeqa
+\qed
+
+For distinct bits $\bita, \bitb$,
+let $V(\bita, \bitb)_{n(\bitb)\rarrow b}$
+denote the result of substituting $n(\bitb)$
+in
+$V(\bita, \bitb)$
+by $b\in Bool$.
+
+\claim
+
+For any
+$\vec{x}=(x_3,x_2,x_1, x_0 )\in Bool^4$
+and $\vec{y}=(y_3,y_2,y_1, y_0 )\in Bool^4$,
+
+\grayeq{\small
+\beq
+\bra{\vec{y}}U_{FT}\ket{\vec{x}}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&&&
+&\freegate{\bra{y_0}H(0)}
+&\gate{\ket{x_{R(0)}}}
+\\
+&&
+&\freegate{\bra{y_1}H(1)}
+&\gate{V(1,0)_{n(0)\rarrow y_0}}
+&\gate{\ket{x_{R(1)}}}
+\\
+&
+&\freegate{\bra{y_2}H(2)}
+&\gate{V(2,1)_{n(1)\rarrow y_1}}
+&\gate{V(2,0)_{n(0)\rarrow y_0}}
+&\gate{\ket{x_{R(2)}}}
+\\
+&\freegate{\bra{y_3}H(3)}
+&\gate{V(3,2)_{n(2)\rarrow y_2}}
+&\gate{V(3,1)_{n(1)\rarrow y_1}}
+&\gate{V(3,0)_{n(0)\rarrow y_0}}
+&\gate{\ket{x_{R(3)}}}
+}
+\end{array}
+\;.
+\eeq}
+\proof
+Obvious.
+\qed
+
+\claim
+
+\grayeq{
+\beq
+R=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\uarrowgate\qwx[1]
+&\uarrowgate\qwx[2]
+&\qw
+&\uarrowgate\qwx[3]
+&\qw
+&\qw
+&\qw
+\\
+&\darrowgate
+&\qw
+&\uarrowgate\qwx[1]
+&\qw
+&\uarrowgate\qwx[2]
+&\qw
+&\qw
+\\
+&\qw
+&\darrowgate
+&\darrowgate
+&\qw
+&\qw
+&\uarrowgate\qwx[1]
+&\qw
+\\
+&\qw
+&\qw
+&\qw
+&\darrowgate
+&\darrowgate
+&\darrowgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-r-expan}
+\eeq}
+\proof
+Check that the right hand side
+of Eq.(\ref{eq-r-expan})
+maps
+$0\rarrow 3$,
+$1\rarrow 2$,
+$2\rarrow 1$, and
+$3\rarrow 0$.
+\qed

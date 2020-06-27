@@ -1,0 +1,696 @@
+
+\chapter{Notation}
+
+
+Let $Bool = \{0,1\}$.
+For integers $a$ and $b$ such that $a\leq b$,
+let $Z_{a,b} = \{a, a+1, a+2, \ldots b\}$.
+
+
+$\delta(x, y)$ and $\delta^x_y$ will both
+denote the Kronecker delta function.
+It equals one when $x=y$ and zero otherwise.
+
+For any statement ${\cal S}$,
+we define the truth function $\theta({\cal S})$
+to equal 1 if ${\cal S}$ is true
+and 0 if ${\cal S}$ is false.
+For example, $\theta(x>0)$ represents the unit step
+function and $\delta(x, y)=\theta(x=y)$
+the Kronecker delta function.
+
+
+$\oplus$ will denote
+addition mod 2.
+Hence, for any $a,b\in Bool$,
+$a\oplus b = a + b - 2ab$ and
+$(-1)^{a\oplus b} = (-1)^{a+b}$.
+When speaking of bits with states
+0 and 1, we will often use
+an overline to represent
+the opposite state:
+$\bar{0} = 1$, $\bar{1} = 0$.
+Note that if $x, k\in Bool$, then
+$\sum_k (-1)^{kx} = 1 + (-1)^x = 2 \delta(x, 0)$.
+For $x\in Bool$, $\delta(x,1)=x$.
+
+We will often use $\ns=2^\nb$,
+where $\nb$ stands for number of bits and
+$\ns$ for number of states.
+We will use lower case Latin letters
+$a,b,c\ldots \in Bool$ to
+represent bit values and
+lower case Greek letters
+$\alpha, \beta, \gamma, \ldots \in Z_{0, \nb-1} $
+to represent bit positions.
+
+Given a binary vector
+$\vec{x}\in Bool^\nb$,
+if its components are
+labelled as follows:
+$\vec{x} =
+(x_{\nb-1}, x_{\nb-2}, \ldots, x_1, x_0)$,
+then
+we will say that the components of
+$\vec{x}$ are labelled naturally.
+For some applications, it is very convenient
+to use natural labelling. For other applications,
+it doesn't much matter whether we use
+natural labelling or not.
+In cases where it doesn't matter, we may
+use other common labellings such as
+$\vec{x} =
+(x_1, x_2, \ldots, x_\nb)$.
+
+Let
+$\vec{\nu}=
+(\nb-1, \nb-2, \ldots, 1,0)$, and
+$2^{\vec{\nu}}=(2^{\nb-1}, 2^{\nb-2}, \ldots, 2^1,2^0)$.
+
+Given any $x\in Z_{0, \ns-1}$, we can write
+$x=\sum_{i=0}^{\nb-1}2^i x_i$.
+If we define the naturally labelled
+binary vector $\vec{x} =
+(x_{\nb-1}, \ldots, x_1, x_0)$,
+then $x=2^{\vec{\nu}}\cdot \vec{x}$.
+We call $\vec{x} =
+(x_{\nb-1}, \ldots, x_1, x_0)$
+ the binary representation
+of $x$ and denote it by $bin(x)$.
+
+Given any naturally labelled
+binary vector $\vec{x} =
+(x_{\nb-1}, \ldots, x_1, x_0)$,
+we can write $x=2^{\vec{\nu}}\cdot \vec{x}$.
+We call $x\in Z_{0, \ns-1}$ the decimal representation
+of $\vec{x}$ and denote it by $dec(\vec{x})$.
+
+If $\vec{x},\vec{y}\in Bool^\nb$,
+we will use $\vec{x}\cdot \vec{y}=
+ \sum_{i=0}^{\nb-1} x_i y_i$,
+ where the addition is normal, not mod 2.
+
+We define the single-qubit states
+$\ket{0}$ and $\ket{1}$ by
+
+\beq
+\ket{0} =
+\left[
+\begin{array}{c}
+1 \\ 0
+\end{array}
+\right]
+\;\;,\;\;
+\ket{1} =
+\left[
+\begin{array}{c}
+0 \\ 1
+\end{array}
+\right]
+\;.
+\eeq
+Given any
+$\vec{x}=(x_1, x_2, \ldots, x_\nb) \in Bool^{\nb}$,
+and given a vector of distinct qubit labels
+$\vecbitb = (\bitb_1, \bitb_2,
+ \ldots, \bitb_\nb)$,
+we define the
+$\nb$-qubit state
+$\ket{\vec{x}}$ as the following tensor product
+
+\beq
+\ket{\vec{x}} =
+\ket{\vec{x}}_\vecbitb =
+\ket{x_1}_{\bitb_1}
+\ket{x_2}_{\bitb_2}
+\ldots
+\ket{x_\nb}_{\bitb_\nb}=
+\ket{x_1}\otimes
+\ket{x_2}
+\ldots\otimes
+\ket{x_\nb}
+\;.
+\label{eq-ket-vec-x-unnatural}
+\eeq
+For example,
+
+\beq
+\ket{01} =
+\left[
+\begin{array}{c}
+1 \\ 0
+\end{array}
+\right]
+\otimes
+\left[
+\begin{array}{c}
+0 \\ 1
+\end{array}
+\right]
+=
+\left[
+\begin{array}{c}
+0 \\ 1 \\ 0 \\0
+\end{array}
+\right]
+\;.
+\eeq
+With natural labelling,
+we would use $\vec{x} =
+(x_{\nb-1}, \ldots, x_1, x_0)$,
+$\vecbitb=\vec{\nu}$
+and $x=\sum_{i=0}^{\nb-1}2^i x_i$.
+Instead of
+Eq.(\ref{eq-ket-vec-x-unnatural}),
+we would have
+
+\beq
+\ket{x}=
+\ket{\vec{x}} =
+\ket{\vec{x}}_{\vec{\nu}} =
+\ket{x_{\nb-1}}_{\nb-1}
+\ldots
+\ket{x_1}_{1}
+\ket{x_0}_{0}
+=
+\ket{x_{\nb-1}}\otimes
+\ldots\otimes
+\ket{x_1}\otimes
+\ket{x_0}
+\;.
+\label{eq-ket-vec-x-natural}
+\eeq
+
+Of course, any $\nb$ qubit state
+can be obtained as a linear combination of
+the states $\ket{\vec{x}}$
+for all $\vec{x}\in Bool^\nb$.
+
+$I_r$ will represent the $r$ dimensional
+unit matrix, for any integer $r\geq 1$.
+
+Suppose
+$\vecbitb =(\bitb_1, \bitb_2, \ldots, \bitb_\nb)$
+is a vector of bit labels,
+$(M_1, M_2, \ldots , M_\nb)$ is
+a vector of  $2\times 2$ complex matrices,
+and
+$(\phi_1, \phi_2, \ldots , \phi_\nb)$ is
+a vector of  2-dimensional complex column vectors.
+For $i\in Z_{1, \nb}$, we define
+$M_i(\beta_i)$ by
+
+\beq
+M_i(\beta_i) =
+I_2 \otimes
+\cdots \otimes
+I_2 \otimes
+M_i \otimes
+I_2 \otimes
+\cdots \otimes
+I_2
+\;,
+\eeq
+where the matrix $M_i$ on the right
+hand side is located
+at bit position $i$
+(counting from left to right, starting at 1)
+ in the tensor product
+of $\nb$ $2\times 2$ matrices.
+We often define a product operator
+$M(\vecbitb)$ by
+
+\beq
+M(\vecbitb) = \prod_{i=1}^\nb M_i(\beta_i)=
+M_1(\bitb_1)\otimes
+M_2(\bitb_2)\otimes
+\ldots
+M_\nb(\bitb_\nb)
+\;,
+\eeq
+and a product state $\ket{\phi}_\vecbitb$
+
+\beq
+\ket{\phi}_\vecbitb =
+\prod_{i=1}^\nb \ket{\phi_i}_{\beta_i}=
+\ket{\phi_1}\otimes
+\ket{\phi_2}\otimes
+\ldots
+\ket{\phi_\nb}
+\;.
+\eeq
+For example, we might find it useful to define
+an operator $M(\vecbitb)$
+and a state
+$\ket{\phi}_{\vecbitb}$
+ by
+
+ \beq
+M(\vecbitb)
+=
+\prod_{i=1}^{\nb}\sigx(\bitb_i)=
+\sigx\otimes
+\sigx\otimes
+\ldots\otimes
+\sigx
+\;,
+\eeq
+
+\beq
+\ket{\phi}_{\vecbitb}=
+\ket{0}_{\vecbitb} =
+\prod_{i=1}^{\nb}\ket{0}_{\bitb_i}=
+\left(\begin{array}{c}1\\0\end{array}\right)
+\otimes
+\left(\begin{array}{c}1\\0\end{array}\right)
+\otimes\cdots\otimes
+\left(\begin{array}{c}1\\0\end{array}\right)
+=
+[1,0,0,\ldots,0]^T
+\;.
+\eeq
+
+
+
+With natural labelling, we use
+$\vecbitb = \vec{\nu}$.
+Let
+$(M_{\nb-1}, \ldots , M_1, M_0)$
+be a vector of
+ $2\times 2$ complex matrices,
+and let
+$(\phi_{\nb-1}, \ldots , \phi_1, \phi_0)$
+be a vector of
+ 2-dimensional complex column vectors.
+ With natural labelling,
+for $i\in Z_{0, \nb-1}$, we define
+$M_i(i)$ by
+
+\beq
+M_i(i) =
+I_2 \otimes
+\cdots \otimes
+I_2 \otimes
+M_i \otimes
+I_2 \otimes
+\cdots \otimes
+I_2
+\;,
+\eeq
+where the matrix $M_i$ on the right
+hand side is located
+at bit position $i$
+(counting from right to left, starting at 0)
+ in the tensor product
+of $\nb$ $2\times 2$ matrices.
+We often define a product operator
+$M(\vec{\nu})$ by
+
+\beq
+M(\vec{\nu}) = \prod_{i=0}^{\nb-1} M_i(i)=
+M_{\nb-1}(\nb-1)\otimes
+\ldots\otimes
+M_1(1)\otimes
+M_0(0)
+\;,
+\eeq
+and a product state $\ket{\phi}_{\vec{\nu}}$
+
+\beq
+\ket{\phi}_{\vec{\nu}} =
+\prod_{i=0}^{\nb-1} \ket{\phi_i}_{i}=
+\ket{\phi_{\nb-1}}\otimes
+\ldots\otimes
+\ket{\phi_1}\otimes
+\ket{\phi_0}
+\;.
+\eeq
+
+
+Next we explain
+our circuit diagram notation.
+In our
+qubit circuit diagrams,
+each horizontal wire represents
+a single qubit (except when
+stated explicitly that the
+wire represents several qubits). Different
+wires  represent different qubits.
+We label single qubit wires
+by Greek letters or
+by integers as follows:
+
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\rstick{\bita}\qw
+\\
+&\rstick{\bitb}\qw
+\\
+&\rstick{\bitc}\qw
+\\
+&\rstick{\bitd}\qw
+\\
+&\vdots
+}
+\end{array}
+\;\;\;\;\;\;,\;\;\;
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\rstick{0}\qw
+\\
+&\rstick{1}\qw
+\\
+&\rstick{2}\qw
+\\
+&\rstick{3}\qw
+\\
+&\vdots
+}
+\end{array}
+\;\;\;\;\;.
+\label{eq-qwires}
+\eeq
+Thus, the first (topmost) wire
+is labelled either
+$\alpha$ or $0$, the second wire
+is labelled either $\beta$ or $1$,
+and so forth.
+For some special applications,
+we label qubits differently from
+Eq.(\ref{eq-qwires}). For example,
+we might label the first two wires
+$\bita_1, \bita_2$, and the next
+two wires $\bitb_1, \bitb_2$,
+or we might want to label the first
+wire $(\bita_1, \bita_2)$,
+and make it represent two qubits.
+In cases where bit labelling is different
+from Eq.(\ref{eq-qwires}),
+this will be stated explicitly.
+Bras are represented by
+\beq
+\ket{\psi_1}_\bita
+\ket{\psi_2}_\bitb
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\ket{\psi_1}}
+\\
+&\gate{\ket{\psi_2}}
+}
+\end{array}
+\;\;,\;\;
+\ket{\psi}_{\bita\bitb}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1.5em @!R{
+&\multigate{1}{\ket{\psi}}
+\\
+&\ghost{\ket{\psi}}
+}
+\end{array}
+\;,
+\eeq
+and kets by
+
+\beq
+\bra{\chi_1}_\bita
+\bra{\chi_2}_\bitb
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\freegate{\bra{\chi_1}}&\qw
+\\
+&\freegate{\bra{\chi_2}}&\qw
+}
+\end{array}
+\;\;,\;\;
+\bra{\chi}_{\bita\bitb}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1.5em @!R{
+&\freemultigate{1}{\bra{\chi}}&\qw
+\\
+&\freeghost{\bra{\chi}}&\qw
+}
+\end{array}
+\;.
+\eeq
+Operators are represented by
+\beq
+T_1(\bita) T_2(\bitb)
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{T_1}&\qw
+\\
+&\gate{T_2}&\qw
+}
+\end{array}
+\;\;,\;\;
+T(\bita,\bitb)
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1.5em @!R{
+&\multigate{1}{T}&\qw
+\\
+&\ghost{T}&\qw
+}
+\end{array}
+\;.
+\eeq
+Matrix elements are represented
+by combining the above rules
+for bras, kets, and operators.
+For example,
+
+\beq
+\bra{\chi}_{\bita\bitb}
+T(\bita,\bitb)\ket{\psi}_{\bita\bitb}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1.5em @!R{
+\freemultigate{1}{\bra{\chi}}
+&\multigate{1}{T}
+&\multigate{1}{\ket{\psi}}
+\\
+\freeghost{\bra{\chi}}
+&\ghost{T}
+&\ghost{\ket{\psi}}
+}
+\end{array}
+\;.
+\eeq
+{\it Note that in our circuit diagrams,
+time flows from the right to the left
+of the diagram.} Careful:
+Many workers in Quantum
+Computing draw their diagrams
+so that time flows from
+left to right. We eschew their
+convention because
+it forces one to reverse
+the order of the operators
+every time one wishes to convert
+between a circuit
+diagram
+and its algebraic equivalent
+in Dirac Notation.
+
+Next, we will introduce
+a slight enhancement to the standard Dirac
+Notation. Given a
+ket $\ket{\psi}$,
+if we can find an operator
+$\Omega$ such that
+$\ket{\psi}$ is
+a unique (up to a scalar factor) eigenvector
+of $\Omega$ with eigenvalue $\lambda$,
+then we will sometimes denote
+$\ket{\psi}$ by
+$\ket{\Omega=\lambda}$.
+Sometimes, in order to
+specify $\ket{\psi}$ uniquely,
+one needs to
+find a complete set of commuting operators
+$\{\Omega_i : i\in Z_{1, N}\}$
+such that $\Omega_i\ket{\psi} =
+\lambda_i\ket{\psi}$
+for all $i$,
+and then we can denote $\ket{\psi}$
+by
+$\ket{\vec{\Omega}=\vec{\lambda}}$.
+Note that if $U$ is a unitary
+operator that acts on the same
+Hilbert space as an operator $\Omega$, then
+$\ket{U\Omega U^\dagger=\lambda}=
+U\ket{\Omega=\lambda}$.
+If
+operator
+$\Omega$
+has an
+eigenspace with eigenvalue $\lambda$,
+then we denote the projector onto that
+eigenspace by
+$\pi(\Omega=\lambda)$.
+If the eigenspace is one dimensional, then
+$\pi(\Omega=\lambda)=\ket{\Omega=\lambda}
+\bra{\Omega=\lambda}$.
+If the eigenspace has dimension greater than one,
+then we can always find an
+orthonormal  basis
+$\{\ket{\psi_\lambda^i}: i\in S\}$
+for the eigenspace,
+and then
+$\pi(\Omega=\lambda)=
+\sum_{i\in S}
+\ket{\psi_\lambda^i}
+\bra{\psi_\lambda^i}$.
+Note that if $U$ is a unitary
+operator
+that acts on the same
+Hilbert space as operator $\Omega$,
+then
+$U\pi(\Omega=\lambda)U^\dagger=
+\pi(U\Omega U^\dagger=\lambda)$.
+
+The Pauli matrices are defined by:
+
+\beq
+\sigx =
+\left(
+\begin{array}{cc}
+0&1\\
+1&0
+\end{array}
+\right)
+\;,\;\;
+\sigy =
+\left(
+\begin{array}{cc}
+0&-i\\
+i&0
+\end{array}
+\right)\;,\;\;
+\sigz =
+\left(
+\begin{array}{cc}
+1&0\\
+0&-1
+\end{array}
+\right)
+\;.
+\eeq
+More information about the Pauli matrices
+may be found in the section
+entitled Pauli Matrices.
+
+We will often abbreviate
+$n-$fold tensor
+products of Pauli matrices
+as follows. If $w_1, w_2,
+\ldots, w_n\in \{X,Y, Z\}$, and
+$b_1, b_2,
+\ldots, b_n\in Bool$, then let
+
+\beq
+\sigma_{w_1,w_2, \ldots, w_n}^{b_1, b_2, \ldots, b_n} =
+\sigma_{w_1}^{b_1}\otimes \sigma_{w_2}^{b_2}
+\otimes\ldots
+\otimes \sigma_{w_n}^{b_n}
+\;.
+\eeq
+For example,
+$\sigma_{XYY}^{1,0,1}=
+\sigx^1\otimes \sigy^0 \otimes \sigy^1$.
+Equivalently, for $n$ bits
+$\vecbita=(\alpha_1, \alpha_2,\ldots \alpha_n)$,
+
+\beq
+\sigma_{w_1,w_2, \ldots, w_n}^{b_1, b_2, \ldots, b_n}
+(\vec{\alpha})=
+\prod_{i=1}^n
+\sigma_{w_i}^{b_i}(\bita_i)
+\;.
+\eeq
+Also let
+
+\beq
+\sigma_{w_1,w_2, \ldots, w_n}=
+\sigma_{w_1,w_2, \ldots, w_n}^{1,1, \ldots, 1}=
+\sigma_{w_1}\otimes \sigma_{w_2}
+\otimes\ldots
+\otimes \sigma_{w_n}
+\;.
+\eeq
+For example,
+$\sigma_{XYY}=\sigma_{XYY}^{1,1,1}=
+\sigx\otimes \sigy \otimes \sigy$.
+
+It is sometimes convenient to define
+the following operator for any $x,z\in Bool$
+and any qubit $\alpha$:
+
+\beq
+\Lambda^{x, z}(\bita)=
+\sigx^{x}(\bita)
+\sigz^{z}(\bita)
+\;.
+\eeq
+Note that
+$\Lambda^{x,z\dagger}=(-1)^{xz}\Lambda^{x, z}$,
+and
+$\Lambda^{00}=1$,
+$\Lambda^{10}=\sigx$,
+$\Lambda^{11}=(-i)\sigy$,
+$\Lambda^{00}=\sigz$.
+$\Lambda^{x, z}$ arises, for example,
+when dealing with Bell states.
+
+
+For any $j\in Bool$ and
+$w_1, w_2\in \{X,Y, Z\}$, let
+$\Pi_{w_1, w_2}^{j}$ be the projection operator
+that projects the
+2 qubit Hilbert space onto
+the eigenspace of $\sigma_{w_1,w_2}$
+with eigenvalue
+$(-1)^j$. Thus,
+
+\beq
+\Pi_{w_1, w_2}^{j} =
+\pi[\sigma_{w_1,w_2}=(-1)^j]
+\;.
+\eeq
+Note that
+\beq
+\sigma_{ZZ}=
+\sigz\otimes \sigz=
+\left(
+\begin{array}{cc}
+1&0\\
+0&-1
+\end{array}
+\right)
+\otimes
+\left(
+\begin{array}{cc}
+1&0\\
+0&-1
+\end{array}
+\right)
+=
+diag(1,-1,-1,1)
+\;.
+\label{eq-sigzz}
+\eeq
+From Eq.(\ref{eq-sigzz}),
+it is clear that
+for any $j,a,b \in Bool$,
+
+\beq
+\pizz{j}\ket{a,b}
+=\delta^j_{a\oplus b}\ket{a,b}
+\;.
+\eeq

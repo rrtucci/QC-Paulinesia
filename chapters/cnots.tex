@@ -1,0 +1,739 @@
+\chapter{CNOTs}
+
+
+We define a CNOT
+(C = controlled, NOT $=\sigx$) by:
+
+\grayeq{
+\beq
+CNOT(\bita\rarrow\bitb)=
+CNOT(\bitb\larrow\bita)=
+\cnot{\bita}{\bitb}=
+(-1)^{n(\bita)n_X(\bitb)}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\eeq}
+$\bita$ is called the
+{\bf control qubit} and $\bitb$ is called the
+{\bf target qubit}. The CNOT can be easily
+generalized to have more than one control qubit:
+
+\grayeq{
+\beq
+\sigma_X^{n(\bita)n(\bitb)}(\bitc)=
+(-1)^{n(\bita)n(\bitb)n_X(\bitc)}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[2]
+&\qw
+\\
+&\dotgate
+&\qw
+\\
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\eeq}
+Other operators related to CNOT are
+
+\grayeq{
+\beq
+\cnoto{\bita}{\bitb}=
+(-1)^{\nbar(\bita)n_X(\bitb)}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\ogate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\qw
+}
+\end{array}
+\;,
+\eeq}
+and
+
+\grayeq{
+\beq
+\sigz^{n(\bita)}(\bitb)=
+\sigz^{n(\bitb)}(\bita)=
+(-1)^{n(\bita)n(\bitb)}=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\dotgate
+&\qw
+}
+\end{array}
+\;.
+\eeq}
+For any $a,b,c\in Bool$,
+
+\grayeq{
+\beq
+\cnot{\bita}{\bitb}\ket{a,b}_{\bita\bitb}=
+\ket{a, b\oplus a}
+\;,
+\label{eq-cnot-oplus}
+\eeq}
+
+\grayeq{
+\beq
+\sigma_X^{n(\bita)n(\bitb)}(\bitc)
+\ket{a,b,c}_{\bita\bitb\bitc}=
+\ket{a, b, c\oplus ab}
+\;,
+\eeq}
+
+\grayeq{
+\beq
+\cnoto{\bita}{\bitb}\ket{a,b}_{\bita\bitb}=
+\ket{a, b \oplus\overline{a} }
+\;,
+\eeq}
+
+\grayeq{
+\beq
+(-1)^{n(\bita)n(\bitb)}\ket{a,b}_{\bita\bitb}=
+(-1)^{ab}\ket{a, b}
+\;.
+\eeq}
+
+Some workers represent a CNOT by
+$\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\targ
+&\qw
+}
+\end{array}$
+instead of
+$\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\qw
+}
+\end{array}$.
+The
+$\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\targ
+&\qw
+}
+\end{array}$
+notation reminds us of the $\oplus$
+in Eq.(\ref{eq-cnot-oplus}), whereas the
+$\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\qw
+}
+\end{array}$
+notation reminds us
+of the $X$ in $\cnot{\bita}{\bitb}$.
+
+
+\claim
+
+\grayeq{
+\beq
+\cnot{\bitb}{\bita}=
+\sigx(\bita)n(\bitb) + \nbar(\bitb)
+\;.
+\eeq}
+\proof
+Check that both sides agree when $n(\bitb)$
+equals zero and one.
+\qed
+
+\claim
+
+\grayeq{
+\beq
+\cnot{\bitb}{\bita}=
+\frac{1}{2}\sum_{(x,z)\in Bool^2}
+\sigx^x(\bita)\sigz^z(\bitb) (-1)^{xz}
+\;.
+\eeq}
+\proof
+\beqa
+\cnot{\bitb}{\bita} &=&
+(-1)^{n_X(\bita)n_Z(\bitb)}\\
+&=& 1 - 2 n_X(\bita)n_Z(\bitb)\\
+&=& 1 - 2
+\left(\frac{1-\sigx(\bita)}{2}\right)
+\left(\frac{1-\sigz(\bitb)}{2}\right)\\
+&=&
+\frac{1}{2}
+[ 1 + \sigx(\bita) + \sigz(\bitb)
+- \sigma_{XZ}(\bita, \bitb)]
+\;.
+\eeqa
+\qed
+
+
+\claim (Permuting 2 CNOTs in a chain)
+
+\grayeq{
+\beqa
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[1]
+&\qw
+&\qw
+\\
+&\dotgate
+&\timesgate\qwx[1]
+&\qw
+\\
+&\qw
+&\dotgate
+&\qw
+}
+\end{array}
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[2]
+&\qw
+&\timesgate\qwx[1]
+&\qw
+\\
+&\qw
+&\timesgate\qwx[1]
+&\dotgate
+&\qw
+\\
+&\dotgate
+&\dotgate
+&\qw
+&\qw
+\gategroup{1}{2}{3}{2}{.7em}{.}
+}
+\end{array}
+\label{eq-com-cnots-line}
+\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\qw
+&\timesgate\qwx[1]
+&\timesgate\qwx[2]
+&\qw
+\\
+&\timesgate\qwx[1]
+&\dotgate
+&\qw
+&\qw
+\\
+&\dotgate
+&\qw
+&\dotgate
+&\qw
+\gategroup{1}{4}{3}{4}{.7em}{.}
+}
+\end{array}
+\;.
+\eeqa}
+\proof
+Let LHS and RHS stand for the left and
+right hand sides of Eq.(\ref{eq-com-cnots-line}).
+For $a,b,c\in Bool$,
+
+\beqa
+LHS\ket{a,b,c}_{\bita\bitb\bitc}&=&
+\cnot{\bitb}{\bita}
+\cnot{\bitc}{\bitb}
+\ket{a,b,c}\\
+&=&
+\cnot{\bitb}{\bita}\ket{a,b\oplus c,c}\\
+&=&
+\ket{a\oplus b \oplus c,b\oplus c,c}
+\;.
+\eeqa
+
+\beqa
+RHS\ket{a,b,c}_{\bita\bitb\bitc}&=&
+\cnot{\bitc}{\bita}
+\cnot{\bitc}{\bitb}
+\cnot{\bitb}{\bita}
+\ket{a,b,c} \\
+&=&
+\cnot{\bitc}{\bita}
+\cnot{\bitc}{\bitb}
+\ket{a\oplus b,b,c}\\
+&=&
+\cnot{\bitc}{\bita}
+\ket{a\oplus b,b \oplus c,c}\\
+&=&
+\ket{a\oplus b \oplus c,b \oplus c,c}
+\;.
+\eeqa
+
+Finally, note that
+$CNOT(\bitc\rarrow\bita)$ and
+$CNOT(\bitc\rarrow\bitb)
+CNOT(\bitb\rarrow\bita)$ commute.
+\qed
+
+A mnemonic for remembering
+Eq.(\ref{eq-com-cnots-line}):
+On the left hand side of
+Eq.(\ref{eq-com-cnots-line}), we have a
+``chain"
+CNOT($\bita\larrow\bitb$)
+CNOT($\bitb\larrow\bitc$) of CNOTs.
+When CNOT($\bita\larrow\bitb$) is moved
+to the right (or to the left), over
+CNOT($\bitb\larrow\bitc$), it leaves
+behind as a ``wake"
+the CNOT within the dotted box.
+The wake CNOT($\bita\larrow\bitc$)
+points from the beginning to the
+end of the  original chain
+CNOT($\bita\larrow\bitb$)
+CNOT($\bitb\larrow\bitc$).
+
+Throughout QC Paulinesia,
+we will refer to equations,
+like Eq.(\ref{eq-com-cnots-line}),
+wherein two operators are permuted
+and a wake is produced,
+as ``wake identities".
+Eq.(\ref{eq-com-cnots-line})
+is the first of many
+wake identities we will present.
+
+
+\claim (Permuting 2 CNOTs in a chain,
+when first and
+last qubit of chain are the same)
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[1]
+&\dotgate
+&\qw
+\\
+&\dotgate
+&\timesgate\qwx[-1]
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate
+&\timesgate\qwx[1]
+&\dotgate
+&\timesgate\qwx[1]
+&\qw
+\\
+&\timesgate\qwx[-1]
+&\dotgate
+&\timesgate\qwx[-1]
+&\dotgate
+&\qw
+\gategroup{2}{3}{1}{2}{.7em}{.}
+}
+\end{array}
+\;.
+\label{eq-com-cnots-loop}
+\eeq}
+\proof
+Eq.(\ref{eq-com-cnots-loop}) is the same as
+
+\beq
+1=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\timesgate\qwx[1]
+&\dotgate
+&\timesgate\qwx[1]
+&\dotgate
+&\timesgate\qwx[1]
+&\dotgate
+&\qw
+\\
+&\dotgate
+&\timesgate\qwx[-1]
+&\dotgate
+&\timesgate\qwx[-1]
+&\dotgate
+&\timesgate\qwx[-1]
+&\qw
+}
+\end{array}
+\;,
+\eeq
+which is just the fact
+that $E^2=1$, where $E$ is
+the exchange operator.
+\qed
+
+A mnemonic for remembering
+Eq.(\ref{eq-com-cnots-loop}):
+On the left hand side of
+Eq.(\ref{eq-com-cnots-loop}), we have a
+``loop chain"
+CNOT($\bita\larrow\bitb$)
+CNOT($\bitb\larrow\bita$) of CNOTs.
+When CNOT($\bita\larrow\bitb$) is moved over
+CNOT($\bitb\larrow\bita$), it leaves
+behind as a ``wake"
+the two CNOTs within the dotted box.
+The wake and the non-wake parts are
+identical.
+
+\claim
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\gate{\sigz}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\gate{\sigz}
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\qw
+&\gate{\sigz}
+&\timesgate
+&\qw
+\gategroup{1}{2}{1}{2}{.7em}{.}
+}
+\end{array}
+\;.
+\label{eq-perm-cnot-sigz}
+\eeq}
+(Dotted box encloses wake.)
+\proof
+Let LHS and RHS stand for the
+left and right hand sides of
+Eq.(\ref{eq-perm-cnot-sigz}).
+For $a,b\in Bool$,
+
+\beqa
+LHS\ket{a,b}_{\bita\bitb}&=&
+\cnot{\bita}{\bitb}\sigz(\bitb)\ket{a,b}
+\\
+&=& (-1)^b \ket{a, b\oplus a}
+\;.
+\eeqa
+
+\beqa
+RHS\ket{a,b}_{\bita\bitb}&=&
+\sigz(\bita)\sigz(\bitb)
+\cnot{\bita}{\bitb}\ket{a,b}
+\\
+&=&
+\sigz(\bita)\sigz(\bitb)
+\ket{a, b\oplus a}
+\\
+&=& (-1)^b \ket{a, b\oplus a}
+\;.
+\eeqa
+\altproof
+
+\beqa
+\cnot{\bita}{\bitb}
+\sigz(\bitb)
+\cnot{\bita}{\bitb}
+&=&
+[\sigx(\bitb) n(\bita) + \nbar(\bita)]
+\sigz(\bitb)
+[\sigx(\bitb) n(\bita) + \nbar(\bita)]\\
+&=&
+\sigz(\bitb)
+[-\sigx(\bitb) n(\bita) + \nbar(\bita)]
+[\sigx(\bitb) n(\bita) + \nbar(\bita)]\\
+&=&
+\sigz(\bitb)[-n(\bita) + \nbar(\bita)]\\
+&=&
+\sigz(\bitb)\sigz(\bita)
+\;.
+\eeqa
+\qed
+
+\claim
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\dotgate\qwx[1]
+&\timesgate
+&\qw
+\\
+&\qw
+&\timesgate
+&\qw
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[2]
+&\qw
+&\qw
+\\
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-two-brothers}
+\eeq}
+\proof
+Apply Eq.(\ref{eq-com-cnots-line}) once to
+left hand side of Eq.(\ref{eq-two-brothers}).
+\qed
+
+Note that in Eq.(\ref{eq-two-brothers}),
+the left hand side contains only nearest
+neighbor CNOTs,
+whereas
+the right hand side
+contains only commuting CNOTs.
+
+
+\claim
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+&\qw
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\timesgate
+&\qw
+\\
+&\qw
+&\timesgate
+&\dotgate\qwx[1]
+&\timesgate
+&\qw
+&\qw
+\\
+&\qw
+&\qw
+&\timesgate
+&\qw
+&\qw
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[3]
+&\qw
+&\qw
+&\qw
+\\
+&\qw
+&\dotgate\qwx[2]
+&\qw
+&\qw
+\\
+&\qw
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\timesgate
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-three-brothers}
+\eeq}
+\proof
+Apply Eq.(\ref{eq-com-cnots-line}) twice to
+left hand side of Eq.(\ref{eq-three-brothers}).
+\qed
+
+\claim
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+\\
+&\timesgate
+&\dotgate\qwx[1]
+&\timesgate
+&\dotgate\qwx[1]
+&\qw
+\\
+&\qw
+&\timesgate
+&\qw
+&\timesgate
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[2]
+&\qw
+\\
+&\qw
+&\qw
+\\
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-cnot-next-nearest}
+\eeq}
+\proof
+This follows immediately
+from Eq.(\ref{eq-two-brothers}).
+\qed
+
+\claim
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[1]
+&\qw
+&\qw
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+&\qw
+&\qw
+\\
+&\timesgate
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\timesgate
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\qw
+&\timesgate
+&\dotgate\qwx[1]
+&\timesgate
+&\qw
+&\timesgate
+&\dotgate\qwx[1]
+&\timesgate
+&\qw
+\\
+&\qw
+&\qw
+&\timesgate
+&\qw
+&\qw
+&\qw
+&\timesgate
+&\qw
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&\dotgate\qwx[3]
+&\qw
+\\
+&\qw
+&\qw
+\\
+&\qw
+&\qw
+\\
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-cnot-next-next-nearest}
+\eeq}
+\proof
+The product of left hand sides
+of Eqs.(\ref{eq-two-brothers})
+and (\ref{eq-three-brothers}),
+equals the product of their
+right hand sides.
+\qed
+
+Eqs.(\ref{eq-cnot-next-nearest}) and
+(\ref{eq-cnot-next-next-nearest})
+suggest a way of converting a
+non-nearest neighbor CNOT
+into a sequence
+of nearest neighbor ones.

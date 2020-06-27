@@ -1,0 +1,660 @@
+\chapter{One and Two Qubit Projective Measurements}
+
+\claim (Conversion: 1 qubit internal measurement $\rarrow$
+1 qubit final measurement)
+
+For any $j\in Bool$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1em @!R{
+&
+&
+\\
+&\gate{\ket{j}\bra{j}}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{j}}
+&\timesgate\qwx[1]
+&\gate{\ket{0}}
+\\
+&\dotgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-1qbit-proj}
+\eeq}
+\proof
+Let LHS and RHS stand for the left and
+right hand sides of Eq.(\ref{eq-1qbit-proj}).
+For any $b\in Bool$,
+
+\beq
+LHS\ket{b}_\bitb =
+\ket{b}_\bitb \delta_j^b
+\;.
+\eeq
+
+\beqa
+RHS\ket{b}_\bitb &=&
+\bra{j}_\bita
+\cnot{\bitb}{\bita}
+\ket{0,b}_{\bita\bitb}\\
+&=&
+\bra{j}_\bita \ket{b,b}_{\bita\bitb}\\
+&=&
+\ket{b}_\bitb \delta_j^b
+\;.
+\eeqa
+\qed
+
+One qubit operations (such as
+internal or final one qubit measurements
+or one qubit rotations)
+are ``cheap" compared with two qubit operations
+such as CNOTs and two qubit measurements (either
+internal or final). This is because two
+qubit operations are slower and
+they require two qubits to interact,
+which  opens the door for noise from
+the environment to creep in.
+So in this section we
+will pay attention only to
+the number of two qubit operations.
+Let {\bf bibit} stand for two bits.
+Next we will show what I like to
+call the ``one to
+two" conversion rules. Namely, given a single
+CNOT, one can always convert it to two
+bibit operations. Likewise,
+given a single bibit operation, one can always
+convert it to two CNOTs.
+
+As usual in this document,
+for $j\in Bool$, we define
+$\pizz{j}(\bita, \bitb)=
+\pi[\sigzz(\bita, \bitb)=(-1)^j]$; i.e,
+$\pizz{j}$ is
+the projection operator onto the
+2 qubit subspace with $(-1)^j$
+as eigenvalue for $\sigz\otimes\sigz$.
+
+
+\claim (Conversion: 1 bibit
+measurement $\rarrow$
+2 CNOTs)
+
+For any $j\in Bool$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1.5em @!R{
+&\multigate{1}{\pizz{j}}
+&\qw
+\\
+&\ghost{\pizz{j}}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\gate{\ket{j}\bra{j}}
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-1meas-to-2cnots-2bit}
+\eeq}
+\proof
+Let RHS stand for the right
+hand side of Eq.(\ref{eq-1meas-to-2cnots-2bit}).
+For any $a,b\in Bool$,
+
+
+\beqa
+RHS\ket{a,b}_{\bita\bitb}&=&
+\cnot{\bita}{\bitb}
+\ket{j}_\bitb
+\bra{j}_\bitb
+\cnot{\bita}{\bitb}
+\ket{a,b}_{\bita\bitb}\\
+&=&
+\cnot{\bita}{\bitb}
+\ket{j}_\bitb
+\delta^j_{a\oplus b}
+\ket{a}_\bita\\
+&=&
+\delta^j_{a\oplus b}
+\ket{a,b}_{\bita\bitb}\\
+&=&
+\pizz{j}\ket{a,b}_{\bita\bitb}
+\;.
+\eeqa
+\qed
+
+\claim (Conversion: 1 bibit measurement $\rarrow$
+1 CNOT. Special case of
+Eq.(\ref{eq-1meas-to-2cnots-2bit}).)
+
+For any $j,k\in Bool$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{k}}
+&\multigate{1}{\pizz{j}}
+&\qw
+\\
+&\ghost{\pizz{j}}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{k}}
+&\qw
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\gate{\sigx^k}
+&\gate{\ket{j}\bra{j}}
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-1meas-to-1cnot}
+\eeq}
+\proof
+Follows immediately from
+Eq.(\ref{eq-1meas-to-2cnots-2bit}).
+\qed
+
+\claim (Another Conversion of: 1 bibit
+measurement $\rarrow$
+2 CNOTs)
+
+For any $j\in Bool$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=1.5em @!R{
+&
+&
+\\
+&\multigate{1}{\pizz{j}}
+&\qw
+\\
+&\ghost{\pizz{j}}
+&\qw
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{j}}
+&\timesgate\qwx[1]
+&\timesgate\qwx[2]
+&\gate{\ket{0}}
+\\
+&\dotgate
+&\qw
+&\qw
+\\
+&\qw
+&\dotgate
+&\qw
+}
+\end{array}
+\;.
+\label{eq-1meas-to-2cnots-3bit}
+\eeq}
+\proof
+Let LHS and RHS denote the left and
+right hand sides of
+Eq.(\ref{eq-1meas-to-2cnots-3bit}).
+
+\beqa
+LHS &=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+&
+&
+&
+\\
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\gate{\ket{j}\bra{j}}
+&\timesgate
+&\qw
+}
+\end{array}\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{j}}
+&\qw
+&\timesgate\qwx[2]
+&\qw
+&\gate{\ket{0}}
+\\
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\dotgate
+&\timesgate
+&\qw
+}
+\end{array}\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{j}}
+&\timesgate\qwx[1]
+&\timesgate\qwx[2]
+&\qw
+&\qw
+&\gate{\ket{0}}
+\\
+&\dotgate
+&\qw
+&\dotgate\qwx[1]
+&\dotgate\qwx[1]
+&\qw
+\\
+&\qw
+&\dotgate
+&\timesgate
+&\timesgate
+&\qw
+}
+\end{array}\\
+&=&RHS
+\;.
+\eeqa
+\qed
+
+\claim (Conversion: 1 CNOT $\rarrow$
+2 bibit measurements)
+
+For any $k, j_1, j_2\in Bool$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=2em @!R{
+&\dotgate\qwx[2]
+&\qw
+\\
+&
+&
+\\
+&\timesgate
+&\qw
+}
+\end{array}
+=
+(-1)^{(k+j_1)j_2}2\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=.5em @R=.5em @!R{
+&\gate{\sigz^{j_2}}
+&\qw
+&\qw
+&\qw
+&\multigate{1}{\pizz{j_1}}
+&\qw
+&\qw
+\\
+\freegate{\bra{k}}
+&\qw
+&\gate{H}
+&\multigate{1}{\pizz{j_2}}
+&\gate{H}
+&\ghost{\pizz{j_1}}
+&\gate{H}
+&\gate{\ket{0}}
+\\
+&\gate{\sigx^{k+j_1}}
+&\gate{H}
+&\ghost{\pizz{j_2}}
+&\gate{H}
+&\qw
+&\qw
+&\qw
+}
+\end{array}
+\;.
+\label{eq-1cnot-to-2meas}
+\eeq}
+\proof
+Define $T$ by
+
+\beq
+T=
+\begin{array}{c}
+\Qcircuit @C=.5em @R=.5em @!R{
+&\qw
+&\qw
+&\qw
+&\multigate{1}{\pizz{j_1}}
+&\qw
+&\qw
+\\
+\freegate{\bra{k}}
+&\gate{H}
+&\multigate{1}{\pizz{j_2}}
+&\gate{H}
+&\ghost{\pizz{j_1}}
+&\gate{H}
+&\gate{\ket{0}}
+\\
+&\gate{H}
+&\ghost{\pizz{j_2}}
+&\gate{H}
+&\qw
+&\qw
+&\qw
+}
+\end{array}
+\;.
+\eeq
+Then
+
+\beq
+T=
+\underbrace{
+\begin{array}{c}
+\Qcircuit @C=.5em @R=.5em @!R{
+&\qw
+&\qw
+&\qw
+\\
+\freegate{\bra{k}}
+&\gate{H}
+&\timesgate\qwx[1]
+&\gate{\ket{j_2}}
+\\
+&\gate{H}
+&\dotgate
+&\qw
+}
+\end{array}
+}_{T_1}
+\;
+\underbrace{
+\begin{array}{c}
+\Qcircuit @C=.5em @R=.5em @!R{
+&\qw
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+\freegate{\bra{j_2}}
+&\timesgate\qwx[1]
+&\gate{H}
+&\timesgate
+&\gate{\ket{j_1}}
+\\
+&\dotgate
+&\gate{H}
+&\qw
+&\qw
+}
+\end{array}
+}_{T_2}
+\;
+\underbrace{
+\begin{array}{c}
+\Qcircuit @C=.5em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+&\qw
+&\qw
+\\
+\freegate{\bra{j_1}}
+&\timesgate
+&\gate{H}
+&\gate{\ket{0}}
+\\
+&\qw
+&\qw
+&\qw
+}
+\end{array}
+}_{T_3}
+\;\;,
+\eeq
+
+\beq
+T_1 =
+\frac{(-1)^{k j_2}}{\sqrt{2}}
+H(\bitc)
+\sigz^k(\bitc)
+\;,
+\eeq
+
+\beq
+T_3 = \frac{1}{\sqrt{2}}
+\;,
+\eeq
+
+\beqa
+T_2 &=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\qw
+&\dotgate\qwx[1]
+&\qw
+\\
+\freegate{\bra{j_2}}
+&\gate{H}
+&\dotgate\qwx[1]
+&\timesgate
+&\gate{\ket{j_1}}
+\\
+&\gate{H}
+&\timesgate
+&\qw
+&\qw
+}
+\end{array}\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\dotgate\qwx[2]
+&\dotgate\qwx[1]
+&\qw
+&\qw
+\\
+\freegate{\bra{j_2}}
+&\gate{H}
+&\qw
+&\timesgate
+&\dotgate\qwx[1]
+&\gate{\ket{j_1}}
+\\
+&\gate{H}
+&\timesgate
+&\qw
+&\timesgate
+&\qw
+}
+\end{array}\\
+&=&
+\frac{(-1)^{j_1 j_2}}{\sqrt{2}}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\dotgate\qwx[2]
+&\gate{\sigz^{j_2}}
+\\
+&
+&
+&
+\\
+&\gate{H}
+&\timesgate
+&\gate{\sigx^{j_1}}
+}
+\end{array}
+\;.
+\eeqa
+Putting all this together,
+
+\beqa
+T &=& T_1 T_2 T_3\\
+&=&
+\frac{(-1)^{(k+j_1) j_2}}{2\sqrt{2}}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\qw
+&\dotgate\qwx[1]
+&\gate{\sigz^{j_2}}
+\\
+&\gate{H\sigz^k H}
+&\timesgate
+&\gate{\sigx^{j_1}}
+}
+\end{array}\\
+&=&
+\frac{(-1)^{(k+j_1) j_2}}{2\sqrt{2}}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigz^{j_2}}
+&\dotgate\qwx[1]
+&\qw
+\\
+&\gate{\sigx^{k+j_1}}
+&\timesgate
+&\qw
+}
+\end{array}
+\;.
+\eeqa
+\altproof
+Define operator $S$ such that for all
+$a,c\in Bool$,
+\beq
+S\ket{a,c}_{\bita\bitc}=
+\bra{k}_\bitb H(\bitb)
+\pizz{j_2}(\bitb,\bitc)
+H(\bitb)
+\pizz{j_1}(\bita, \bitb)
+H(\bitb)
+\ket{a,0,c}_{\bita\bitb\bitc}
+\;.
+\label{eq-alg-t}
+\eeq
+In Eq.(\ref{eq-alg-t}),
+insert a partition of unity
+$\sum_{(a_1, b_1, c_1)\in Bool^3}
+\ket{a_1,b_1, c_1}
+\bra{a_1,b_1, c_1}$
+before the first bibit
+measurement and
+another
+$\sum_{(a_2, b_2, c_2)\in Bool^3}
+\ket{a_2,b_2, c_2}
+\bra{a_2,b_2, c_2}$
+before the second.
+Then use the fact that
+for $a,b,j\in Bool$,
+$\pizz{j}\ket{a,b} = \delta^j_{a\oplus b}\ket{a,b}$.
+Details left to the reader.
+\qed
+
+\claim (Conversion: 1 CNOT $\rarrow$ 1
+bibit measurement.
+Special case of
+Eq.(\ref{eq-1cnot-to-2meas}).)
+
+For any $j,k\in Bool$,
+
+\grayeq{
+\beq
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\dotgate\qwx[1]
+&\qw
+\\
+&\timesgate
+&\gate{\ket{j}}
+}
+\end{array}
+=
+(-1)^{jk}\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigz^j}
+&\multigate{1}{\pizz{j}}
+&\qw
+&\qw
+\\
+&\qw
+&\ghost{\pizz{j}}
+&\gate{H}
+&\gate{\ket{k}}
+}
+\end{array}
+\;.
+\label{eq-1cnot-1meas}
+\eeq}
+\proof
+Let LHS and RHS stand for the left and
+right hand sides of Eq.(\ref{eq-1cnot-1meas}).
+Then
+
+\beq
+RHS=
+(-1)^{jk}\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\gate{\sigz^j}
+&\dotgate\qwx[1]
+&\qw
+&\dotgate\qwx[1]
+&\qw
+&\qw
+\\
+&\qw
+&\timesgate
+&\gate{\ket{j}\bra{j}}
+&\timesgate
+&\gate{H}
+&\gate{\ket{k}}
+}
+\end{array}
+=
+LHS
+\;.
+\eeq
+\qed

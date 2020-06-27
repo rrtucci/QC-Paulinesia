@@ -1,0 +1,52 @@
+\documentclass[12pt]{report}
+\input{QCPaul.sty}
+\input{MyQcircuit.sty}
+
+
+\begin{document}
+
+\title{\textbf{QC Paulinesia},\\
+\normalsize{An archipelago of identities,\\
+formed from the lava of Pauli Matrices,\\
+by the volcanic activity of Quantum Computing.}}
+
+
+\author{Robert R. Tucci\\
+        www.ar-tiste.xyz}
+
+
+\date{ \today}
+\maketitle
+
+       \begin{figure}[h]
+\centering
+            \noindent\includegraphics[width=5in]{bora-bora-air.jpg}
+            \caption{Bora Bora, part of Society Islands of French Polynesia, 230 mi from Tahiti}
+            %\label{}
+      \end{figure}
+
+\noindent\includegraphics[height=8.5in]{oceania600.pdf}
+
+
+\tableofcontents
+\include{foreword}
+\include{chapters/introduction}
+\include{chapters/notation}
+\include{chapters/pauli-mats}
+\include{chapters/hadamard-mats}
+\include{chapters/cnots}
+\include{chapters/cnot-gens}
+\include{chapters/exchanger}
+\include{chapters/bell-states}
+\include{chapters/ghz}
+\include{chapters/proj-meas}
+\include{chapters/exchange-scat}
+\include{chapters/teleportation}
+\include{chapters/dense-coding}
+\include{chapters/fourier-trans}
+
+\nocite{*}
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}

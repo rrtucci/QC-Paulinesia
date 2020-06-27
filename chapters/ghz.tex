@@ -1,0 +1,109 @@
+\chapter{GHZ}
+
+The GHZ state is defined by
+
+\grayeq{
+\beq
+\ket{GHZ} =
+\frac{1}{\sqrt{2}}
+(\ket{000} + \ket{111})
+\;.
+\eeq}
+
+\claim
+
+\grayeq{
+\beq
+\ket{GHZ} =
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&\timesgate\qwx[2]
+&\qw
+&\qw
+&\gate{\ket{0}}
+\\
+&\qw
+&\timesgate\qwx[1]
+&\qw
+&\gate{\ket{0}}
+\\
+&\dotgate
+&\dotgate
+&\gate{H}
+&\gate{\ket{0}}
+}
+\end{array}
+\;.
+\label{eq-ghz-ckt}
+\eeq}
+\proof
+Let RHS denote right
+hand side of Eq.(\ref{eq-ghz-ckt}).
+
+\beqa
+RHS&=&
+\cnot{\bitc}{\bita}
+\cnot{\bitc}{\bitb}
+H(\bitc)
+\ket{000}_{\bita\bitb\bitc}
+\\
+&=&
+\cnot{\bitc}{\bita}
+\cnot{\bitc}{\bitb}
+\frac{1}{\sqrt{2}}\sum_{a\in Bool}\ket{0,0,a}
+\\
+&=&
+\frac{1}{\sqrt{2}}\sum_{a\in Bool}\ket{a,a,a}=\ket{GHZ}
+\;.
+\eeqa
+\qed
+
+\claim
+
+\grayeq{
+\beq
+\sigma_{XYY}\ket{GHZ}=
+\sigma_{YXY}\ket{GHZ}=
+\sigma_{YYX}\ket{GHZ}=-\ket{GHZ}
+\;.
+\label{eq-ghz-xyy}
+\eeq}
+Hence,
+
+\grayeq{
+\beq
+\sigma_{XYY}\sigma_{YXY}
+\sigma_{YYX}\ket{GHZ}=-\ket{GHZ}
+\;.
+\label{eq-ghz-3xyy}
+\eeq}
+However,
+
+\grayeq{
+\beq
+\sigma_{XXX}\ket{GHZ}=+\ket{GHZ}
+\;.
+\label{eq-ghz-xxx}
+\eeq}
+\proof
+For any $a\in Bool$,
+$\sigy\ket{a}=i(-1)^a\ket{\overline{a}}$ and
+$\sigx\ket{a}=\ket{\overline{a}}$ so
+
+\beqa
+\sigma_{XYY}\ket{GHZ}&=&
+\sigx\otimes\sigy\otimes\sigy
+\frac{1}{\sqrt{2}}\sum_{a\in Bool}\ket{a,a,a}
+\\
+&=&
+(-1)\frac{1}{\sqrt{2}}
+\sum_a\ket{\overline{a},\overline{a},\overline{a}}\\
+&=& -\ket{GHZ}
+\;.
+\eeqa
+This establishes Eq.(\ref{eq-ghz-xyy}).
+Eq.(\ref{eq-ghz-3xyy}) follows from
+Eq.(\ref{eq-ghz-xyy}).
+Eq.(\ref{eq-ghz-xxx}) can be proven in the
+same way as Eq.(\ref{eq-ghz-xyy}).
+\qed

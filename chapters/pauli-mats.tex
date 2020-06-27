@@ -1,0 +1,337 @@
+\chapter{Pauli Matrices}
+
+
+ The Pauli matrices are defined by:
+
+\beq
+\sigx =
+\left(
+\begin{array}{cc}
+0&1\\
+1&0
+\end{array}
+\right)
+\;,\;\;
+\sigy =
+\left(
+\begin{array}{cc}
+0&-i\\
+i&0
+\end{array}
+\right)\;,\;\;
+\sigz =
+\left(
+\begin{array}{cc}
+1&0\\
+0&-1
+\end{array}
+\right)
+\;.
+\eeq
+Sometimes one refers to
+$\sigx,\sigy, \sigz$ as $\sigma_1, \sigma_2, \sigma_3$,
+respectively. One can then use $\sigma_0$ to
+denote the $2 \times 2$ identity matrix.
+It is often convenient to use
+the vector of Pauli matrices
+$\vec{\sigma} = (\sigx, \sigy, \sigz)$.
+
+All 3 Pauli matrices are their own inverses:
+\beq
+\sigx^2=\sigy^2=\sigz^2=1
+\;.
+\label{eq-sig-sq}
+\eeq
+Distinct Pauli matrices anticommute. For example,
+
+\beq
+\sigx\sigx = -\sigy\sigx
+\;.
+\label{eq-sig-anticom}
+\eeq
+It is easy to check that
+
+\beq
+\sigx\sigy = i \sigz
+\;,\;\;
+\sigy\sigz = i \sigx
+\;,\;\;
+\sigz\sigx = i \sigy
+\;.
+\label{eq-sigx-sigy}
+\eeq
+Note that Eqs.(\ref{eq-sig-sq}),
+(\ref{eq-sig-anticom}) and (\ref{eq-sigx-sigy})
+specify a $3 \times 3$ multiplication
+table for the 3 Pauli matrices with each other.
+
+For $w\in \{X, Y, Z\}$,
+if $\ket{+_w}$ and $\ket{-_w}$ represent
+the eigenvectors of
+$\sigma_w$ with
+eigenvalues $+1$ and $-1$, respectively,
+then
+
+\beq
+\ket{+_X} =
+\frac{1}{\sqrt{2}}
+\left(
+\begin{array}{c}
+1\\1
+\end{array}
+\right)
+\;,\;\;
+\ket{-_X} =
+\frac{1}{\sqrt{2}}
+\left(
+\begin{array}{c}
+1\\-1
+\end{array}
+\right)
+\;,
+\eeq
+
+\beq
+\ket{+_Y} =
+\frac{1}{\sqrt{2}}
+\left(
+\begin{array}{c}
+1\\i
+\end{array}
+\right)
+\;,\;\;
+\ket{-_Y} =
+\frac{1}{\sqrt{2}}
+\left(
+\begin{array}{c}
+1\\-i
+\end{array}
+\right)
+\;,
+\eeq
+
+\beq
+\ket{+_Z} =
+\left(
+\begin{array}{c}
+1\\0
+\end{array}
+\right)
+\;,\;\;
+\ket{-_Z} =
+\left(
+\begin{array}{c}
+0\\1
+\end{array}
+\right)
+\;.
+\eeq
+
+
+We define
+
+\beq
+\ket{0} =\ket{+_Z}
+\;,
+\eeq
+and
+
+\beq
+\ket{1} =\ket{-_Z}
+\;.
+\eeq
+We will use
+$n$ to denote the ``number operator". Thus,
+
+
+\beq
+n =  \left(\begin{array}{cc}
+0&0\\
+0&1
+\end{array}\right)
+=\ket{-_Z}\bra{-_Z}=  \frac{1-\sigma_Z}{2}
+\;,
+\eeq
+and
+
+\beq
+\nbar = 1-n = \left(\begin{array}{cc}
+1&0\\
+0&0
+\end{array}\right)
+=\ket{+_Z}\bra{+_Z}=  \frac{1+\sigma_Z}{2}
+\;.
+\eeq
+Since $n$ and $\sigma_Z$ are diagonal, it is
+easy to see that
+
+\beq
+\sigma_Z =(-1)^n = 1 - 2n
+\;.
+\eeq
+
+Most of the definitions and results stated so far
+for $\sigz$
+have counterparts for
+$\sigz$ and $\sigy$.
+The counterpart results can be
+easily proven by applying a rotation that
+interchanges the coordinate axes.
+Let $w\in \{X, Y, Z\}$.
+If $\ket{+_w}$ and $\ket{-_w}$
+represent the eigenvectors of $\sigma_w$ with
+eigenvalues $+1$ and $-1$, respectively,
+then we define
+
+\beq
+\ket{0_w} =\ket{+_w}
+\;,
+\eeq
+and
+
+\beq
+\ket{1_w} =\ket{-_w}
+\;.
+\eeq
+Let
+
+
+\beq
+n_w=
+\ket{-_w}\bra{-_w}=  \frac{1-\sigma_w}{2}
+\;,
+\eeq
+
+\beq
+\nbar_w = 1-n_w
+=\ket{+_w}\bra{+_w}=  \frac{1+\sigma_w}{2}
+\;.
+\eeq
+As when $w=Z$, one has
+
+\beq
+ \sigma_w = (-1)^{n_w} = 1 - 2n_w
+\;.
+\eeq
+
+
+Note that whenever we use
+$\ket{0}$, $\ket{1}$ or $n$ ,
+without an $X, Y$ or $Z$ subscript,
+the subscript $Z$ should be inferred.
+
+The one bit Hadamard matrix is defined by:
+
+\beq
+H = \frac{1}{\sqrt{2}}
+\left(
+\begin{array}{cc}
+1&1\\
+1&-1
+\end{array}
+\right)=
+\frac{1}{\sqrt{2}}
+(\sigx + \sigz)
+\;.
+\eeq
+It is easy to check that
+
+\beq
+H^2 =  1
+\;,
+\eeq
+
+\beq
+H\sigx H = \sigz\;,\;\;
+H\sigz H = \sigx
+\;,
+\eeq
+
+\beq
+\ket{0_X} =
+\frac{\ket{0} + \ket{1}}{\sqrt{2}} =
+H \ket{0}
+\;,
+\eeq
+
+\beq
+\ket{1_X} =
+\frac{\ket{0} - \ket{1}}{\sqrt{2}} =
+H \ket{1}
+\;.
+\eeq
+
+The matrix $i^n$ is defined by
+
+\beq
+i^n =
+\left(
+\begin{array}{cc}
+1&0\\
+0&i
+\end{array}
+\right)
+\;.
+\eeq
+It is easy to check that
+
+\beq
+(i^n)^2 = \sigz
+\;,
+\eeq
+
+\beq
+i^n\sigx i^{-n} = \sigy \;,\;\;
+i^{-n}\sigx i^{n} = -\sigy
+\;.
+\eeq
+
+Note that for $a,b\in Bool$,
+
+\beq
+\sigx^b\ket{a} = \ket{a\oplus b}
+\;,
+\eeq
+
+\beq
+\sigz^b\ket{a} = (-1)^{ab}\ket{a}
+\;,
+\eeq
+
+\beq
+\bra{a}H\ket{b} = \frac{(-1)^{ab}}{\sqrt{2}}
+\;.
+\eeq
+
+
+A general qubit rotation is defined by
+$e^{i\vec{\theta}\cdot \vec{\sigma}}$,
+where $\vec{\theta}$ is a 3 dimensional
+real vector.
+For any real
+number $\theta$,
+
+\beq
+e^{i\theta\sigz} =
+\cos\theta + i \sigz \sin\theta
+\;.
+\label{eq-z-rot}
+\eeq
+Eq.(\ref{eq-z-rot}) can
+be proven by expressing both sides
+of it as a
+power series.
+Applying a rotation to
+Eq.(\ref{eq-z-rot}), it becomes
+
+\beq
+e^{i\vec{\theta}\cdot \vec{\sigma}}=
+\cos\theta +
+i\vec{\sigma}\cdot\hat{\theta}
+\sin\theta
+\;,
+\eeq
+where $\vec{\theta}$ is a
+3 dimensional real vector,
+$\theta$ is its magnitude, and
+$\hat{\theta}=\vec{\theta}/\theta$.

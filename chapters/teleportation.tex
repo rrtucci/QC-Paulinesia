@@ -1,0 +1,202 @@
+\chapter{Teleportation}
+
+Throughout this section, $\ket{\psi}$ will denote
+an arbitrary one qubit state.
+
+\claim
+
+For any $x, z\in Bool$,
+
+\grayeq{
+\beq
+2
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freemultigate{1}{\bra{B_{xz}}}
+& \gate{\ket{\psi}}
+\\
+\freeghost{\bra{B_{xz}}}
+&\multigate{1}{\ket{B^{xz}}}
+\\
+&\ghost{\ket{B^{xz}}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+&
+\\
+&\gate{\ket{\psi}}
+}
+\end{array}
+\;.
+\label{eq-tele1}
+\eeq}
+\proof
+Let LHS denote the left
+hand side of Eq.(\ref{eq-tele1}).
+Then
+
+\beqa
+LHS &=&
+\bra{B^{00}}_{\bita\bitb}
+\sigz^z(\bitb)\sigx^x(\bitb)
+\sigx^x(\bitb)\sigz^z(\bitb)
+\ket{\psi}_\bita
+\ket{B^{00}}_{\bitb\bitc}\\
+&=&
+\bra{B^{00}}_{\bita\bitb}
+\ket{\psi}_\bita
+\ket{B^{00}}_{\bitb\bitc}
+\;,
+\eeqa
+so we only need to prove Eq.(\ref{eq-tele1})
+for $x=z=0$.
+
+For an arbitrary $a\in Bool$,
+
+\beqa
+\bra{B^{00}}_{\bita\bitb}
+\ket{a}_\bita
+\ket{B^{00}}_{\bitb\bitc}
+&=&
+(\frac{1}{2})
+(\bra{00}_{\bita\bitb} + \bra{11}_{\bita\bitb})
+\ket{a}_\bita
+(\ket{00}_{\bitb\bitc} + \ket{11}_{\bitb\bitc})\\
+&=&
+\frac{\bra{a}_{\bitb}}{2}
+(\ket{00}_{\bitb\bitc} + \ket{11}_{\bitb\bitc})\\
+&=&
+\frac{\ket{a}_\bitc}{2}
+\;.
+\eeqa
+
+Alternatively, note that
+
+\beqa
+2
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freemultigate{1}{\bra{B^{00}}}
+& \gate{\ket{\psi}}
+\\
+\freeghost{\bra{B^{00}}}
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+&=&
+2
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{0}}
+&\gate{H}
+&\dotgate\qwx[1]
+&\qw
+&\qw
+&\gate{\ket{\psi}}
+\\
+\freegate{\bra{0}}
+&\qw
+&\timesgate
+&\dotgate\qwx[1]
+&\gate{H}
+&\gate{\ket{0}}
+\\
+&\qw
+&\qw
+&\timesgate
+&\qw
+&\gate{\ket{0}}
+}
+\end{array}\\
+&=&
+2
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{0}}
+&\gate{H}
+&\dotgate\qwx[1]
+&\dotgate\qwx[2]
+&\qw
+&\gate{\ket{\psi}}
+\\
+\freegate{\bra{0}}
+&\dotgate\qwx[1]
+&\timesgate
+&\qw
+&\gate{H}
+&\gate{\ket{0}}
+\\
+&\timesgate
+&\qw
+&\timesgate
+&\qw
+&\gate{\ket{0}}
+}
+\end{array}\\
+&=&
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{0}}
+&\gate{H}
+&\dotgate\qwx[2]
+&\gate{\ket{\psi}}
+\\
+&
+&
+&
+\\
+&\qw
+&\timesgate
+&\gate{\ket{0}}
+}
+\end{array}\\
+&=&
+\ket{\psi}_\bitc
+\;.
+\eeqa
+\qed
+
+\claim
+
+For any $x, z\in Bool$,
+
+\grayeq{
+\beq
+2
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freemultigate{1}{\bra{B^{xz}}}
+&\qw
+& \gate{\ket{\psi}}
+\\
+\freeghost{\bra{B_{xz}}}
+&\qw
+&\multigate{1}{\ket{B^{00}}}
+\\
+&\gate{\sigx^x\sigz^z}
+&\ghost{\ket{B^{00}}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+&
+\\
+&\gate{\ket{\psi}}
+}
+\end{array}
+\;.
+\label{eq-tele2}
+\eeq}
+\proof
+Follows immediately from Eq.(\ref{eq-tele1}).
+\qed

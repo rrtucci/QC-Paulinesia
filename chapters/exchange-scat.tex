@@ -1,0 +1,508 @@
+\chapter{Two Qubit Exchange Scattering}
+Throughout this section, $\ket{\psi}$
+will denote an arbitrary one qubit state.
+
+\claim (Exchange scattering via Exchanger)
+
+For any $z\in Bool$,
+
+\grayeq{
+\beq
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{z}}
+&\gate{H}
+&\uarrowgate\qwx[1]
+&\gate{\ket{\psi}}
+\\
+&\qw
+&\darrowgate
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+& \gate{\ket{\psi}}
+}
+\end{array}
+\;.
+\label{eq-ex-scat-via-exch}
+\eeq}
+\proof
+Let LHS and RHS stand for the left and
+right hand sides of
+Eq.(\ref{eq-ex-scat-via-exch}).
+
+\beq
+LHS =
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{z}}
+&\gate{H}
+&\gate{\ket{0}}
+\\
+&\qw
+&\gate{\ket{\psi}}
+}
+\end{array}
+= RHS
+\;.
+\eeq
+\qed
+
+\claim (Exchange scattering via CNOT)
+
+For any $z\in Bool$,
+
+\grayeq{
+\beq
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{z}}
+&\qw
+&\gate{H}
+&\dotgate\qwx[1]
+&\gate{\ket{\psi}}
+\\
+&\gate{\sigz^z}
+&\qw
+&\timesgate
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+& \gate{\ket{\psi}}
+}
+\end{array}
+\;.
+\label{eq-ex-scat-via-cnot1}
+\eeq}
+\proof
+Let LHS and RHS stand for the left and
+right hand sides of
+Eq.(\ref{eq-ex-scat-via-cnot1}).
+
+\beqa
+LHS &=&
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{z}}
+&\dotgate\qwx[1]
+&\gate{H}
+&\dotgate\qwx[1]
+&\uarrowgate\qwx[1]
+&\gate{\ket{0}}
+\\
+&\dotgate
+&\qw
+&\timesgate
+&\darrowgate
+&\gate{\ket{\psi}}
+}
+\end{array}\\
+&=&
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{z}}
+&\gate{H}
+&\timesgate\qwx[1]
+&\dotgate\qwx[1]
+&\dotgate\qwx[1]
+&\timesgate\qwx[1]
+&\dotgate\qwx[1]
+&\gate{\ket{0}}
+\\
+&\qw
+&\dotgate
+&\timesgate
+&\timesgate
+&\dotgate
+&\timesgate
+&\gate{\ket{\psi}}
+}
+\end{array}\\
+&=&
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{z}}
+&\gate{H}
+&\gate{\ket{0}}
+\\
+&\qw
+&\gate{\ket{\psi}}
+}
+\end{array}\\
+&=& RHS
+\;.
+\eeqa
+\altproof
+For any $a\in Bool$:
+
+\beq
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{0}H}
+&\dotgate\qwx[1]
+&\gate{\ket{a}}
+\\
+&\timesgate
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\sigx^a(\bitb)\ket{0}_\bitb
+= \ket{a}_\bitb
+\;.
+\eeq
+Thus, for an arbitrary state $\ket{\psi}$,
+
+\beq
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{0}H}
+&\dotgate\qwx[1]
+&\gate{\ket{\psi}}
+\\
+&\timesgate
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+&\gate{\ket{\psi}}
+}
+\end{array}
+\;.
+\label{eq-ex-scat-lite}
+\eeq
+In Eq.(\ref{eq-ex-scat-lite}),
+if we multiply ket $\ket{\psi}$
+by a pre-processing and a post-processing $\sigz^z$,
+then we obtain
+
+\beq
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{0}H}
+&\qw
+&\dotgate\qwx[1]
+&\gate{\sigz^z\ket{\psi}}
+\\
+&\gate{\sigz^z}
+&\timesgate
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+&\gate{(\sigz^z)^2\ket{\psi}}
+}
+\end{array}
+\;,
+\eeq
+which easily yields
+
+\beq
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{z}}
+&\gate{H}
+&\dotgate\qwx[1]
+&\gate{\ket{\psi}}
+\\
+&\gate{\sigz^z}
+&\timesgate
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+&\gate{\ket{\psi}}
+}
+\end{array}
+\;.
+\eeq
+\qed
+
+
+\claim (Another example of exchange scattering via CNOT)
+
+For any $x\in Bool$,
+
+\grayeq{
+\beq
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{x}}
+&\qw
+&\timesgate\qwx[1]
+&\qw
+&\gate{\ket{\psi}}
+\\
+&\gate{\sigx^x}
+&\dotgate
+&\gate{H}
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+& \gate{\ket{\psi}}
+}
+\end{array}
+\;.
+\label{eq-ex-scat-via-cnot2}
+\eeq}
+\proof
+In Eq.(\ref{eq-ex-scat-via-cnot1}),
+if we replace $z$ by $x$ and
+multiply the ket $\ket{\psi}$
+by a pre-processing and a
+post-processing $H$, then we obtain:
+
+\beq
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{x}}
+&\qw
+&\dotgate\qwx[1]
+&\gate{H}
+&\dotgate\qwx[1]
+&\gate{H\ket{\psi}}
+\\
+&\gate{H}
+&\dotgate
+&\qw
+&\timesgate
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+& \gate{H^2\ket{\psi}}
+}
+\end{array}
+\;.
+\eeq
+The last identity simplifies to
+
+\beq
+\sqrt{2}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{x}}
+&\dotgate\qwx[1]
+&\timesgate\qwx[1]
+&\qw
+&\gate{\ket{\psi}}
+\\
+&\timesgate
+&\dotgate
+&\gate{H}
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+& \gate{\ket{\psi}}
+}
+\end{array}
+\;,
+\eeq
+which is the same as the claim that we
+set out to prove.
+\qed
+
+\claim (Exchange scattering via a 2 qubit
+projective measurement)
+
+For any $j,k\in Bool$,
+
+\grayeq{
+\beq
+2
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{j}}
+&\gate{H}
+&\multigate{1}{\pizz{k}}
+&\qw
+&\gate{\ket{\psi}}
+\\
+&\gate{\sigz^j\sigx^k}
+&\ghost{\pizz{k}}
+&\gate{H}
+&\gate{\ket{0}}
+}
+\end{array}
+=
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+&
+\\
+& \gate{\ket{\psi}}
+}
+\end{array}
+\;.
+\label{eq-ex-scat-via-proj}
+\eeq}
+\proof
+\beqa
+\lefteqn{
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{j}}
+&\gate{H}
+&\multigate{1}{\pizz{k}}
+&\qw
+&\gate{\ket{\psi}}
+\\
+&\qw
+&\ghost{\pizz{k}}
+&\gate{H}
+&\gate{\ket{0}}
+}
+\end{array}
+=}
+\label{eq-scat-one-box}
+\\
+&=&
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{j}}
+&\gate{H}
+&\timesgate\qwx[1]
+&\gate{\ket{k}}
+&\freegate{\bra{k}}
+&\timesgate\qwx[1]
+&\qw
+&\gate{\ket{\psi}}
+\\
+&\qw
+&\dotgate
+&\qw
+&\qw
+&\dotgate
+&\gate{H}
+&\gate{\ket{0}}
+\gategroup{1}{1}{2}{4}{.7em}{.}
+\gategroup{1}{5}{2}{8}{.7em}{.}
+}
+\end{array}
+\label{eq-scat-two-boxes}
+\\
+&=&
+\left[
+\frac{(-1)^{jk}}{\sqrt{2}}
+\sigz^j(\bitb)
+\right]
+\left[
+\frac{\sigx^k(\bitb)}{\sqrt{2}}\ket{\psi}_\bitb
+\right]
+\label{eq-scat-no-boxes}
+\\
+&=&
+\sigx^k(\bitb)\sigz^j(\bitb)
+\ket{\psi}_\bitb/2
+\;.
+\eeqa
+To go from Eq.(\ref{eq-scat-one-box})
+to Eq.(\ref{eq-scat-two-boxes}), we
+expressed the two qubit projective measurement
+in terms of 2 CNOTs, as described in
+the section entitled One and Two Qubit
+Projective Measurements.
+To go from Eq.(\ref{eq-scat-two-boxes})
+to Eq.(\ref{eq-scat-no-boxes}), we used identity
+Eq.(\ref{eq-ex-scat-via-cnot2})
+to reduce the second dotted
+box of Eq.(\ref{eq-scat-two-boxes}).
+\altproof
+For any $a\in Bool$,
+\beqa
+\lefteqn{
+\begin{array}{c}
+\Qcircuit @C=1em @R=.5em @!R{
+\freegate{\bra{j}}
+&\gate{H}
+&\multigate{1}{\pizz{k}}
+&\qw
+&\gate{\ket{a}}
+\\
+&\qw
+&\ghost{\pizz{k}}
+&\gate{H}
+&\gate{\ket{0}}
+}
+\end{array}
+=}\\
+&=&
+\bra{j}_\bita
+H(\bita)
+\pizz{k}
+\left(\sum_{(a',b')\in Bool^2}
+\ket{a',b'}
+\bra{a',b'}\right)
+H(\bitb)
+\ket{a,0}_{\bita\bitb}\\
+&=&
+\sum_{a',b'}
+\bra{j}_\bita
+H(\bita)
+\ket{a'}_\bita
+\ket{b'}_\bitb
+\delta^k_{a'\oplus b'}
+\bra{a',b'}H(\bitb)
+\ket{a, 0}_{\bita\bitb}\\
+&=&
+\sum_{a',b'}
+\frac{(-1)^{ja'}}{\sqrt{2}}
+\ket{b'}_\bitb
+\delta^k_{a'\oplus b'}
+\frac{\delta_a^{a'}}{\sqrt{2}}\\
+&=&
+\frac{(-1)^{ja}}{2}
+\ket{k\oplus a}_\bitb\\
+&=&
+\sigx^k(\bitb)\sigz^j(\bitb)
+\ket{a}_\bitb/2
+\;.
+\eeqa
+\qed

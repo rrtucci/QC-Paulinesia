@@ -1,0 +1,76 @@
+\chapter{Hadamard Matrices}
+
+The 1 bit Hadamard matrix is defined by
+
+\beq
+H_1 =\frac{1}{\sqrt{2}}
+\begin{tabular}{r|rr}
+         & {\tiny 0} & {\tiny 1} \\
+\hline
+{\tiny 0}& 1&  1\\
+{\tiny 1}& 1& -1\\
+\end{tabular}
+\;.
+\eeq
+The $\nb$-bit Hadamard matrix is defined
+as the $\nb$-fold tensor product of $H_1$:
+
+\beq
+H_\nb = \underbrace{
+H_1\otimes H_1 \otimes \ldots \otimes H_1}_{\mbox{$\nb$ factors}}
+\;.
+\eeq
+For example, for $\nb=2$,
+
+\beq
+H_2 =
+\frac{1}{2}
+\begin{tabular}{r|rrrr}
+         & {\tiny 00} & {\tiny 01} & {\tiny 10} & {\tiny 11}\\
+\hline
+{\tiny 00}&  1&  1&  1&  1\\
+{\tiny 01}&  1& -1&  1& -1\\
+{\tiny 10}&  1&  1& -1& -1\\
+{\tiny 11}&  1& -1& -1&  1\\
+\end{tabular}
+\;,
+\eeq
+where we have labelled
+the rows and columns with binary numbers
+ in increasing dictionary order.
+Equivalently, for bits
+$\vec{\alpha}=(\alpha_1,
+\alpha_1, \ldots, \alpha_{\nb})$,
+
+\beq
+H_\nb(\vec{\alpha})=
+\prod_{i=1}^{\nb}
+H_1(\alpha_i)
+\;.
+\eeq
+We will often use a plain $H$
+to represent $H_1$.
+Since
+$(H_1)_{b,b'} = \frac{(-1)^{bb'}}{\sqrt{2}}$
+ for $b, b'\in Bool$,
+it follows that
+
+ \beq
+ (H_\nb)_{\vec{b},\vec{b'}} =
+ \frac{(-1)^{\vec{b}\cdot \vec{b'}}}{\sqrt{2^\nb}}
+ \;
+ \eeq
+ for $\vec{b}, \vec{b'}\in Bool^\nb$ .
+Since $H_1^2=1$ and $H_1^T=H_1$, where
+T=transpose, it follows that
+
+\beq
+H_\nb^2 = 1
+\;,
+\eeq
+and
+
+\beq
+H_\nb^T = H_\nb
+\;.
+\eeq

@@ -1,0 +1,78 @@
+\usepackage{graphicx}     %standard package. Note graphics<graphicx<epsfig
+\usepackage{color}     %standard package
+\usepackage{hyperref} %standard package written by Sebastian Rahtz
+%\usepackage{subeqn}    %allows equations 1a, 1b
+%\usepackage{subfig}    %allows figures 1a, 1b
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url} 
+
+\usepackage[nottoc]{tocbibind}
+
+\paperheight=11in
+\topmargin=0in
+\headheight=0in
+\headsep=0in
+\topskip=0in
+\textheight=8.5in
+\footskip=.5in
+
+\paperwidth=8.5in
+\oddsidemargin=0in
+\evensidemargin=0in
+\textwidth=7.0in
+\parindent=.5in
+
+
+
+%\newcommand{\bra}[1]{\langle#1|}
+%\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\av}[1]{\langle#1\rangle}
+\newcommand{\pder}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\tr}[0]{{\rm tr }}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqa}{\begin{eqnarray}}
+\newcommand{\eeqa}{\end{eqnarray}}
+\newcommand{\rarrow}[0]{\rightarrow}
+\newcommand{\larrow}[0]{\leftarrow}
+\newcommand{\ul}[1]{\underline{#1}}
+
+
+\newcommand{\sigx}[0]{{\sigma_X}}
+\newcommand{\sigy}[0]{{\sigma_Y}}
+\newcommand{\sigz}[0]{{\sigma_Z}}
+\newcommand{\sigzz}[0]{{\sigma_{ZZ}}}
+\newcommand{\pizz}[1]{{\Pi_{ZZ}^{#1}}}
+\newcommand{\nbar}[0]{{\overline{n}}}
+
+%\definecolor{mygray}{gray}{.92}
+%mygray = SpringGreen
+
+%\definecolor{mygray}{cmyk}{0.26,0,0.76,0}
+%\newcommand{\grayeq}[1]{
+%\noindent\colorbox{mygray}{
+%\parbox{\linewidth}{
+%#1}}}
+
+\newcommand{\grayeq}[1]{\textcolor{red}{#1}}
+
+\newcommand{\bita}{\alpha}
+\newcommand{\vecbita}{{\vec{\bita}}}
+\newcommand{\bitb}{\beta}
+\newcommand{\vecbitb}{{\vec{\bitb}}}
+\newcommand{\bitc}{\gamma}
+\newcommand{\vecbitc}{{\vec{\bitc}}}
+\newcommand{\bitd}{\delta}
+\newcommand{\bite}{\epsilon}
+\newcommand{\cnot}[2]{\sigx(#2)^{n(#1)}}
+\newcommand{\cnoto}[2]{\sigx(#2)^{\nbar(#1)}}
+\newcommand{\claim}{\vspace{1em}\noindent{\bf Claim:\;}}
+\newcommand{\proof}{
+    \newline\noindent{\it proof:}\newline}
+\newcommand{\altproof}{\qed
+    \newline\noindent{\it alternative proof:}\newline}
+\newcommand{\qed}{\newline\noindent{QED}\vspace{1em}}
+
+\newcommand{\ns}{{N_S}}
+\newcommand{\nb}{{N_B}}
