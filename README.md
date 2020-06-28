@@ -6,3 +6,5 @@ quantum computing. In particular, it's
 about the maths behind quantum circuits.
  
 Link to pdf of book: https://github.com/rrtucci/QC-Paulinesia/raw/master/main.pdf 
+
+Brought to you by www.ar-tiste.xyz
