@@ -12,4 +12,4 @@ Brought to you by www.ar-tiste.xyz
 ## Honor roll 
 Alphabetical list of those who have spotted errors. Number of errors spotted 
  in parenthesis.
-*  Alexander Tolios (1)
+*  Tolios, Alexander (1)
